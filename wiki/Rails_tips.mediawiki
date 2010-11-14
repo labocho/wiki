@@ -1,5 +1,24 @@
-= render_error =
-404 とか 403 とかを render するメソッド。
+= コントローラからファイルを返す =
+render のかわりに send_file / send_data を使う。send_data 使ったことない。
+send_file の :disposition => 'inline' でインライン画像。このオプションなしだとダウンロードさせる。
+
+* [http://apidock.com/rails/ActionController/Streaming/send_file send_file (ActionController::Streaming) - APIdock]
+* [http://apidock.com/rails/ActionController/Streaming/send_data send_data (ActionController::Streaming) - APIdock]
+
+= file_column 保存時に MIME タイプを取得 =
+file_column の仕組みについては [http://d.hatena.ne.jp/elm200/20070730/1185776933 file_column プラグイン内部構造 - Rails で行こう！] がわかりやすい。
+<source lang="ruby">
+# ActiveRecord のサブクラス内
+file_column :file
+
+alias :old_file= :file=
+def file=(file)
+  mime = file.content_type #=> 'image/png' とか
+  old_file = file
+end
+</source>
+
+= 404 とか 403 とかを render するメソッド =
 
 <source lang="ruby">
 # lib/render_error.rb
@@ -15,8 +34,8 @@ class ActionController::Base
 end
 </source>
 
+== 使い方 ==
 <source lang="ruby">
-# 使い方
 # render_error は false を返すので
 # filter の返り値にそのまま使うとフィルターチェーンを中断できる
 render_error 404
