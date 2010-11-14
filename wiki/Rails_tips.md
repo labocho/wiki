@@ -8,8 +8,12 @@ layout: wiki
 ==============================
 
 render のかわりに send\_file / send\_data を使う。send\_data
-使ったことない。 send\_file の :disposition =\> 'inline'
-でインライン画像。このオプションなしだとダウンロードさせる。
+使ったことない。
+
+``` {.ruby}
+send_file png_image_file_path, :type => 'image/png', :disposition => 'inline' #=> インラインで表示させたり、ブラウザ上で画像を表示させる場合
+send_file png_image_file_path, :type => 'image/png' #=> こっちはダウンロードのダイアログが出る
+```
 
 -   [send\_file (ActionController::Streaming) -
     APIdock](http://apidock.com/rails/ActionController/Streaming/send_file)
@@ -36,6 +40,9 @@ end
 
 404 とか 403 とかを render するメソッド
 =======================================
+
+render\_error 404 などとすると、public/404.html を探してステータスコード
+404 をつけて render し、false を返す。
 
 ``` {.ruby}
 # lib/render_error.rb

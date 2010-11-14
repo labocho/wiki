@@ -1,6 +1,10 @@
 = コントローラからファイルを返す =
 render のかわりに send_file / send_data を使う。send_data 使ったことない。
-send_file の :disposition => 'inline' でインライン画像。このオプションなしだとダウンロードさせる。
+
+<source lang="ruby">
+send_file png_image_file_path, :type => 'image/png', :disposition => 'inline' #=> インラインで表示させたり、ブラウザ上で画像を表示させる場合
+send_file png_image_file_path, :type => 'image/png' #=> こっちはダウンロードのダイアログが出る
+</source>
 
 * [http://apidock.com/rails/ActionController/Streaming/send_file send_file (ActionController::Streaming) - APIdock]
 * [http://apidock.com/rails/ActionController/Streaming/send_data send_data (ActionController::Streaming) - APIdock]
@@ -19,6 +23,7 @@ end
 </source>
 
 = 404 とか 403 とかを render するメソッド =
+render_error 404 などとすると、public/404.html を探してステータスコード 404 をつけて render し、false を返す。
 
 <source lang="ruby">
 # lib/render_error.rb
