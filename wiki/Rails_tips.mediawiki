@@ -1,5 +1,6 @@
 = render_error =
-<pre>
+
+<source lang="ruby">
 # lib/render_error.rb
 module RenderError
   def render_error(status_code)
@@ -7,13 +8,15 @@ module RenderError
     return false
   end
 end
+
 class ActionController::Base
   include RenderError
-end</pre>
+end
+</source>
 
-<pre>
+<source lang="ruby">
 # 使い方
 # render_error は false を返すので
 # filter の返り値にそのまま使うとフィルターチェーンを中断できる
 render_error 404
-</pre>
+</source>
