@@ -17,7 +17,7 @@ file_column :file
 
 alias :old_file= :file=
 def file=(file)
-  mime = file.content_type #=> 'image/png' とか
+  self.mime = file.content_type #=> 'image/png' とか
   old_file = file
 end
 </source>
