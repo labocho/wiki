@@ -7,6 +7,8 @@ layout: wiki
 render\_error
 =============
 
+404 とか 403 とかを render するメソッド。
+
 ``` {.ruby}
 # lib/render_error.rb
 module RenderError

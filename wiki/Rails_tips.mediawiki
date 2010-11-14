@@ -1,4 +1,5 @@
 = render_error =
+404 とか 403 とかを render するメソッド。
 
 <source lang="ruby">
 # lib/render_error.rb
