@@ -7,3 +7,56 @@ undefined、null、0、NaN、または空文字列 ("") でない任意の値、
 
 [https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if...else if...else - MDC]
 </blockquote>
+
+= JavaScriptURI / ブックマークレット =
+<tt>javascript:</tt> から始まる文字列を JavaScript URI と呼び、<tt>a</tt> 要素の <tt>href</tt> 属性の値としたり、ブックマークレットとして使ったり、ロケーションバー (アドレスバー) で実行したりできる。
+
+<blockquote>
+When a browser follows a javascript: URI, it evaluates the code in the URI and then replaces the contents of the page with the returned value, unless the returned value is undefined. The void operator can be used to return undefined.
+
+[https://developer.mozilla.org/en/JavaScript/Reference/Operators/Special_Operators/void_Operator void - MDC]
+</blockquote>
+
+コードを実行した結果、undefined 以外の返り値があると、ブラウザはその値を表示する。
+
+たとえば
+
+<source lang="javascript">
+javascript:1+1
+</source>
+
+とするとページ遷移して 2 が表示される。
+
+返り値が undefined だとページ遷移しない。
+
+<source lang="javascript">
+javascript:undefined // なにも起こらない
+</source>
+
+== 返り値が undefined となる (ページ遷移しない) 例 ==
+
+return しない function はつねに undefined を返す。2 行以上にわたるスクリプトならこれを使うのが簡単。
+
+<source lang="javascript">
+(function(){})() === undefined; //true
+</source>
+
+void(expression) は expression を評価してつねに undefined を返す。
+
+<source lang="javascript">
+void(1) === undefined; //true
+</source>
+
+alert() も undefined を返す。
+
+<source lang="javascript">
+alert('alert') === undefined; //true
+</source>
+
+== prompt ==
+
+見た目は alert に似てる prompt() は、OK なら入力値、キャンセルなら null を返すので、単体では JavaScript URI / ブックマークレットには使えない。void をかませるのが楽。
+
+<source lang="javascript">
+void(prompt('Please copy.', 'Copy me!')) === undefined; //true
+</source>
