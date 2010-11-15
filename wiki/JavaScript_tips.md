@@ -18,8 +18,8 @@ false、undefined、null、0、NaN、空文字列 のみが falsy。 それ以�
 > [<https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if>...else
 > if...else - MDC]
 
-JavaScriptURI / ブックマークレット
-==================================
+JavaScript URI / ブックマークレット
+===================================
 
 `javascript:` から始まる文字列を JavaScript URI と呼び、`a` 要素の
 `href`

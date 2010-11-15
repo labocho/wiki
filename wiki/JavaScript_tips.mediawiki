@@ -8,7 +8,7 @@ undefined、null、0、NaN、または空文字列 ("") でない任意の値、
 [https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if...else if...else - MDC]
 </blockquote>
 
-= JavaScriptURI / ブックマークレット =
+= JavaScript URI / ブックマークレット =
 <tt>javascript:</tt> から始まる文字列を JavaScript URI と呼び、<tt>a</tt> 要素の <tt>href</tt> 属性の値としたり、ブックマークレットとして使ったり、ロケーションバー (アドレスバー) で実行したりできる。
 
 <blockquote>
