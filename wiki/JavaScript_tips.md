@@ -83,3 +83,18 @@ prompt
 ``` {.javascript}
 void(prompt('Please copy.', 'Copy me!')) === undefined; //true
 ```
+
+location.href
+-------------
+
+location.href に URL
+を代入した場合は、コード全体の返り値にかかわらず、ページ遷移する。
+(ちなみに、代入式は右辺を評価した結果が返るので location.href = 'url'
+の返り値は 'url'となる)
+
+``` {.javascript}
+// 以下のいづれも http://penguinlab.jp/ に遷移する
+javascript:location.href = 'http://penguinlab.jp/'
+javascript:void(location.href = 'http://penguinlab.jp/')
+javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})()
+```
