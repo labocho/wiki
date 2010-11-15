@@ -12,7 +12,7 @@ send_file png_image_file_path, :type => 'image/png' #=> こっちはダウンロ
 = file_column 保存時に MIME タイプを取得 =
 file_column の仕組みについては [http://d.hatena.ne.jp/elm200/20070730/1185776933 file_column プラグイン内部構造 - Rails で行こう！] がわかりやすい。
 <source lang="ruby">
-# ActiveRecord のサブクラス内
+# ActiveRecord::Base のサブクラス内
 file_column :file
 
 alias :old_file= :file=

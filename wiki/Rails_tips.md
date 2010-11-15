@@ -28,7 +28,7 @@ file\_column の仕組みについては [file\_column プラグイン内部構�
 がわかりやすい。
 
 ``` {.ruby}
-# ActiveRecord のサブクラス内
+# ActiveRecord::Base のサブクラス内
 file_column :file
 
 alias :old_file= :file=
