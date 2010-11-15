@@ -89,7 +89,7 @@ location.href
 
 location.href に URL
 を代入した場合は、コード全体の返り値にかかわらず、ページ遷移する。
-(ちなみに、代入式は右辺を評価した結果が返るので location.href = 'url'
+(ちなみに、代入式は右辺を評価した結果を返すので location.href = 'url'
 の返り値は 'url'となる)
 
 ``` {.javascript}
