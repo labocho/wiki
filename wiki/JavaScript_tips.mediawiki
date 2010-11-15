@@ -1,0 +1,9 @@
+= 真偽値 =
+false、undefined、null、0、NaN、空文字列 のみが falsy。
+それ以外は [] も {} も new Boolean(false) も truthy。
+
+<blockquote>
+undefined、null、0、NaN、または空文字列 ("") でない任意の値、および値が false である Boolean オブジェクトを含む任意のオブジェクトは、条件文に渡されたときに true と評価されます。
+
+[https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if...else if...else - MDC]
+</blockquote>
