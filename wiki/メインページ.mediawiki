@@ -1,6 +1,9 @@
 labocho による Wiki です。ブログやtweetを補完するようなものです。
 
-編集は labocho しかできませんので悪しからず。
+Wiki といっても、編集は labocho しかできませんので悪しからず。
+
+* ブログはこちら → [http://penguinlab.jp/blog 情報と音楽]
+* tweet はこちら → [http://twitter.com/ labocho (labocho) on Twitter]
 
 = コンテンツ =
 * [[Rails tips]]
