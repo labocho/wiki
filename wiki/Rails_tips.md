@@ -17,11 +17,8 @@ render のかわりに send\_file / send\_data を使う。
     渡す。ファイルがなくてもよい。
 
 いづれも :disposition
-オプションで、インラインで表示させるか、ダウンロードダイアログを表示させるか選べる。
-(正確には、Content-Disposition ヘッダを設定する。参考: [RFC 1806 -
-Internet Engineering Task Force](http://www.ietf.org/rfc/rfc1806.txt)
-日本語訳: [RFC 1806: The Content-Disposition
-Header](http://lab.moyo.biz/translations/rfc/rfc1806-ja.xsp))
+オプションで、インラインで表示させるか、ダウンロードダイアログを表示させるか選べる。(正確には、Content-Disposition
+ヘッダを設定する。)
 
 ``` {.ruby}
 send_file png_image_file_path, :type => 'image/png', :disposition => 'inline' #=> インラインで表示させたり、ブラウザ上で画像を表示させる場合
@@ -32,6 +29,13 @@ send_file png_image_file_path, :type => 'image/png' #=> こっちはダウンロ
     APIdock](http://apidock.com/rails/ActionController/Streaming/send_file)
 -   [send\_data (ActionController::Streaming) -
     APIdock](http://apidock.com/rails/ActionController/Streaming/send_data)
+
+-   [RFC 1806 - Internet Engineering Task
+    Force](http://www.ietf.org/rfc/rfc1806.txt) Content-Disposition
+    ヘッダについて
+-   [RFC 1806: The Content-Disposition
+    Header](http://lab.moyo.biz/translations/rfc/rfc1806-ja.xsp)
+    同日本語訳
 
 file\_column 保存時に MIME タイプを取得
 =======================================
