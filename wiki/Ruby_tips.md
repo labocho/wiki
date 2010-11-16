@@ -6,6 +6,8 @@ layout: wiki
 
 明示してなければたぶん 1.8.7 / 1.9.2 で動作するはず。
 
+Rails については [Rails tips](/wiki/Rails tips "wikilink") 参照。
+
 String\#inspect で16進数表記を返す
 ==================================
 
