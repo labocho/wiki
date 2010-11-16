@@ -1,8 +1,7 @@
-labocho による Wiki です。ブログやtweetを補完するようなものです。
+labocho による Wiki です。ブログや tweet を補完するようなものです。
 
 Wiki といっても、編集は labocho しかできませんので悪しからず。
 
-= コンテンツ =
 * [[Ruby tips]]
 * [[Rails tips]]
 * [[JavaScript tips]]
