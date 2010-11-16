@@ -1,3 +1,5 @@
+明示してなければたぶん 1.8.7 / 1.9.2 で動作するはず。
+
 = String#inspect で16進数表記を返す =
 バイナリを扱うプログラムの開発時などに。
 <source lang="ruby">
@@ -17,6 +19,21 @@ class String
 end
 </source>
 <source lang="ruby">
-# usage
+# Usage
 p 'labocho' #=> 6C 61 62 6F 63 68 6F
 </source>
+
+= Base64 エンコード / デコード =
+エンコード
+<source lang="ruby">
+# Base64 Encoder
+# Usage: ruby base64_encoder.rb binary_file
+print [ARGF.binmode.read].pack("m").gsub(/[\r\n]/, '')
+</source>
+デコード
+<source lang="ruby">
+# Base64 Decoder
+# Usage: ruby base64_decoder.rb base64_file
+STDOUT.binmode.print ARGF.binmode.read.unpack("m")[0]
+</source>
+IO#binmode は Windows 環境で必要 (別の環境では無視される)。
