@@ -3,6 +3,7 @@ labocho による Wiki です。ブログやtweetを補完するようなもの�
 Wiki といっても、編集は labocho しかできませんので悪しからず。
 
 = コンテンツ =
+* [[Ruby tips]]
 * [[Rails tips]]
 * [[JavaScript tips]]
 [[特別:ページ一覧|ページ一覧を表示]]
