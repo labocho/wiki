@@ -1,3 +1,5 @@
+明示してなければ 2.3.8。
+
 = コントローラからファイルを返す =
 render のかわりに send_file / send_data を使う。send_data 使ったことない。
 
