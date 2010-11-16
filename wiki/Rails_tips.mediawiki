@@ -1,5 +1,7 @@
 明示してなければ 2.3.8。
 
+Ruby については [[Ruby tips]] 参照。
+
 = コントローラからファイルを返す =
 render のかわりに send_file / send_data を使う。
 

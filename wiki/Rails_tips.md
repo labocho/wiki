@@ -6,6 +6,8 @@ layout: wiki
 
 明示してなければ 2.3.8。
 
+Ruby については [Ruby tips](/wiki/Ruby tips "wikilink") 参照。
+
 コントローラからファイルを返す
 ==============================
 
