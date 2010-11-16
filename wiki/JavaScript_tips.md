@@ -4,6 +4,8 @@ permalink: wiki/JavaScript_tips/
 layout: wiki
 ---
 
+明示してなければ Firefox 3.6 で確認。
+
 真偽値
 ======
 
