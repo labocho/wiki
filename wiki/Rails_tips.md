@@ -9,8 +9,19 @@ layout: wiki
 コントローラからファイルを返す
 ==============================
 
-render のかわりに send\_file / send\_data を使う。send\_data
-使ったことない。
+render のかわりに send\_file / send\_data を使う。
+
+-   send\_file
+    にはファイルパスを渡す。ファイルが実際にある場合はこちらが楽
+-   send\_data にはバイナリデータを (String オブジェクトで)
+    渡す。ファイルがなくてもよい。
+
+いづれも :disposition
+オプションで、インラインで表示させるか、ダウンロードダイアログを表示させるか選べる。
+(正確には、Content-Disposition ヘッダを設定する。参考: [RFC 1806 -
+Internet Engineering Task Force](http://www.ietf.org/rfc/rfc1806.txt)
+日本語訳: [RFC 1806: The Content-Disposition
+Header](http://lab.moyo.biz/translations/rfc/rfc1806-ja.xsp))
 
 ``` {.ruby}
 send_file png_image_file_path, :type => 'image/png', :disposition => 'inline' #=> インラインで表示させたり、ブラウザ上で画像を表示させる場合
