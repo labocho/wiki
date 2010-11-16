@@ -6,4 +6,5 @@ Wiki といっても、編集は labocho しかできませんので悪しから
 * [[Ruby tips]]
 * [[Rails tips]]
 * [[JavaScript tips]]
+* [[Excel の数式基礎]]
 [[特別:ページ一覧|ページ一覧を表示]]
