@@ -1,3 +1,4 @@
+= ペンギンラボ Wiki =
 labocho による Wiki です。ブログや tweet を補完するようなものです。
 
 Wiki といっても、編集は labocho しかできませんので悪しからず。
