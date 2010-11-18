@@ -122,10 +122,12 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 
 正確な書式は下記の通り。
 
-    dataurl    := "data:" [ mediatype ] [ ";base64" ] "," data
-    mediatype  := [ type "/" subtype ] *( ";" parameter )
-    data       := *urlchar
-    parameter  := attribute "=" value
+> dataurl := "data:" [ mediatype ] [ ";base64" ] "," data  
+> mediatype := [ type "/" subtype ] \*( ";" parameter )  
+> data := \*urlchar  
+> parameter := attribute "=" value  
+> - *[RFC2397: The "data" URL
+> scheme](http://www.ietf.org/rfc/rfc2397.txt)*
 
 まあだいたいこうなる。
 
