@@ -75,7 +75,7 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 </source>
 
 = スクリプト中に画像を埋め込む =
-(JavaScript tips というより HTML tips だけど。)
+(JavaScript に限らないけど)
 
 <tt>data:</tt> から始まる文字列を data URI と呼び、Base64 エンコードしたデータを、<tt>img</tt> 要素の <tt>src</tt> 属性の値、<tt>a</tt> 要素の <tt>href</tt> 属性の値として使ったり、ロケーションバー (アドレスバー) に入力して表示したりできる。
 

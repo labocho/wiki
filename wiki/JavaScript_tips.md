@@ -105,7 +105,7 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 スクリプト中に画像を埋め込む
 ============================
 
-(JavaScript tips というより HTML tips だけど。)
+(JavaScript に限らないけど)
 
 `data:` から始まる文字列を data URI と呼び、Base64
 エンコードしたデータを、`img` 要素の `src` 属性の値、`a` 要素の `href`
