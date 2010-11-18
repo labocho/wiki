@@ -106,9 +106,12 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 
 (JavaScript tips というより HTML tips だけど。)
 
-HTML の img 要素の src 属性には、画像を Base64
-エンコードした文字列を指定することができる。これを利用すれば、スクリプトや
-HTML ドキュメント、CSS
+`data:` から始まる文字列を data URI と呼び、Base64
+エンコードしたデータを、`img` 要素の `src` 属性の値、`a` 要素の `href`
+属性の値として使ったり、ロケーションバー (アドレスバー)
+に入力して表示したりできる。
+
+これを利用すれば、スクリプトや HTML ドキュメント、CSS
 中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP
 リクエストをとにかく減らしたい時にも。
 

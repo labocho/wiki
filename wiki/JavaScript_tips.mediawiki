@@ -77,7 +77,9 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 = スクリプト中に画像を埋め込む =
 (JavaScript tips というより HTML tips だけど。)
 
-HTML の img 要素の src 属性には、画像を Base64 エンコードした文字列を指定することができる。これを利用すれば、スクリプトや HTML ドキュメント、CSS 中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP リクエストをとにかく減らしたい時にも。
+<tt>data:</tt> から始まる文字列を data URI と呼び、Base64 エンコードしたデータを、<tt>img</tt> 要素の <tt>src</tt> 属性の値、<tt>a</tt> 要素の <tt>href</tt> 属性の値として使ったり、ロケーションバー (アドレスバー) に入力して表示したりできる。
+
+これを利用すれば、スクリプトや HTML ドキュメント、CSS 中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP リクエストをとにかく減らしたい時にも。
 
 <source lang="html4strict">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH2AwJCy4XDsD1YwAAABd0RVh0U29mdHdhcmUAR0xEUE5HIHZlciAzLjRxhaThAAAACHRwTkdHTEQzAAAAAEqAKR8AAAAEZ0FNQQAAsY8L/GEFAAAABmJLR0QA/wD/AP+gvaeTAAAAy0lEQVR4nGNQWnKXJMRApga5nn341cEVgDSIpnYyMDDg0QOUAioAKkOxAS6EhtCMY8C0FI97sHg6yJsBDaEpYGIAgz8vHhosVwaitYsU0BBEHKgAopIBYiPQpP9vFYDo9ikU44FciDiQDXEYSENpDkgCSAJFgeT/HyvgCC4IUQB10kqFfeWNDGlxDJ31DF2NCgxfK+AIyAUKAqWACoDKoE6CuwriBjQEEYcHFAvEJywS8mccQQaUNzoxoAKIOFABwtNoQY6GqJT4iEcADHRd+HNHbvIAAAAASUVORK5CYII=" />
