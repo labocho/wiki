@@ -88,10 +88,12 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 正確な書式は下記の通り。
 
 <blockquote>
+<tt>
 dataurl    := "data:" [ mediatype ] [ ";base64" ] "," data<br/>
 mediatype  := [ type "/" subtype ] *( ";" parameter )<br/>
 data       := *urlchar<br/>
 parameter  := attribute "=" value<br/>
+</tt>
 - ''[http://www.ietf.org/rfc/rfc2397.txt RFC2397: The "data" URL scheme]''
 </blockquote>
 
