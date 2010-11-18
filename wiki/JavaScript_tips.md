@@ -108,8 +108,8 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 
 HTML の img 要素の src 属性には、画像を Base64
 エンコードした文字列を指定することができる。これを利用すれば、スクリプトや
-HTML
-ドキュメント中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP
+HTML ドキュメント、CSS
+中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP
 リクエストをとにかく減らしたい時にも。
 
 ``` {.html4strict}
@@ -129,4 +129,6 @@ HTML
 
 -   [RFC2397: The "data" URL
     scheme](http://www.ietf.org/rfc/rfc2397.txt)
+-   [data URI scheme - Wikipedia, the free
+    encyclopedia](http://en.wikipedia.org/wiki/Data_URI_scheme)
 
