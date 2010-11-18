@@ -116,7 +116,7 @@ MOD(値, 除数) : 剰余
 == = : 両辺が等しければTRUE、それ以外はFALSE == 等号2つ ==
 じゃなくて、1つ = なので注意。
 
-    =(1=1) → TRU
+    =(1=1) → TRUE
     =(1=2) → FALSE
     =("string"="string") → TRUE
     =("string"="String") → TRUE ※大文字小文字は区別されない
