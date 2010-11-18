@@ -80,7 +80,8 @@ prompt
 
 見た目は alert に似てる prompt() は、OK なら入力値、キャンセルなら null
 を返すので、単体で JavaScript URI /
-ブックマークレットに使うとページ遷移してしまう。void をかませるのが楽。
+ブックマークレットに使うとページ遷移してしまう。void()
+をかませるのが楽。
 
 ``` {.javascript}
 void(prompt('Please copy.', 'Copy me!')) === undefined; //true
