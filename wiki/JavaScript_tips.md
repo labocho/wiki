@@ -100,3 +100,33 @@ javascript:location.href = 'http://penguinlab.jp/'
 javascript:void(location.href = 'http://penguinlab.jp/')
 javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})()
 ```
+
+スクリプト中に画像を埋め込む
+============================
+
+(JavaScript tips というより HTML tips だけど。)
+
+HTML の img 要素の src 属性には、画像を Base64
+エンコードした文字列を指定することができる。これを利用すれば、スクリプトや
+HTML
+ドキュメント中に画像などのバイナリデータを埋め込むことができる。ユーザースクリプトやブックマークレットなどに。HTTP
+リクエストをとにかく減らしたい時にも。
+
+``` {.html4strict}
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH2AwJCy4XDsD1YwAAABd0RVh0U29mdHdhcmUAR0xEUE5HIHZlciAzLjRxhaThAAAACHRwTkdHTEQzAAAAAEqAKR8AAAAEZ0FNQQAAsY8L/GEFAAAABmJLR0QA/wD/AP+gvaeTAAAAy0lEQVR4nGNQWnKXJMRApga5nn341cEVgDSIpnYyMDDg0QOUAioAKkOxAS6EhtCMY8C0FI97sHg6yJsBDaEpYGIAgz8vHhosVwaitYsU0BBEHKgAopIBYiPQpP9vFYDo9ikU44FciDiQDXEYSENpDkgCSAJFgeT/HyvgCC4IUQB10kqFfeWNDGlxDJ31DF2NCgxfK+AIyAUKAqWACoDKoE6CuwriBjQEEYcHFAvEJywS8mccQQaUNzoxoAKIOFABwtNoQY6GqJT4iEcADHRd+HNHbvIAAAAASUVORK5CYII=" />
+```
+
+正確な書式は下記の通り。
+
+    dataurl    := "data:" [ mediatype ] [ ";base64" ] "," data
+    mediatype  := [ type "/" subtype ] *( ";" parameter )
+    data       := *urlchar
+    parameter  := attribute "=" value
+
+まあだいたいこうなる。
+
+    data:(MIMEタイプ);base64,(Base64 文字列)
+
+-   [RFC2397: The "data" URL
+    scheme](http://www.ietf.org/rfc/rfc2397.txt)
+
