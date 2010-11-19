@@ -139,3 +139,19 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 -   [data URI scheme - Wikipedia, the free
     encyclopedia](http://en.wikipedia.org/wiki/Data_URI_scheme)
 
+本
+==
+
+<amazon locale="jp" id="4873113911">
+
+%title%
+-------
+
+歴史的経緯により、言語仕様も周辺の情報もカオスな
+JavaScript。この本ではリテラルや文法など基本的な言語仕様をまず押さえ、そのうえで「良いパーツ」とそれを使ったプログラミングの方法が紹介される。JavaScript
+に対する印象が一変した。
+
+[%url% %mediumimage%]
+
+[%url% %title% / %author% 著. %publisher%, %publishedyear%, %pages%p.]
+</amazon>
