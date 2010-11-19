@@ -39,3 +39,22 @@ print [ARGF.binmode.read].pack("m").gsub(/[\r\n]/, '')
 STDOUT.binmode.print ARGF.binmode.read.unpack("m")[0]
 </source>
 IO#binmode は Windows 環境で必要 (別の環境では無視される)。
+
+= 本 =
+<amazon locale="jp" id="4873113679">
+== %title% ==
+プログラマのための Ruby 入門。簡潔で正確。この本を読めばリファレンスマニュアルが理解できるようになり、かなりのことができるようになる。最初にこの本を読んでよかった。
+
+[%url% %mediumimage%]
+
+[%url% %title% / %author% 著. %publisher%, %publishedyear%, %pages%p.]
+</amazon>
+
+<amazon locale="jp" id="4048687158">
+== %title% ==
+マニアックに見えるが、Ruby をちゃんと使うためには必須と思える内容。Ruby におけるクラス/モジュールとはどんなものなのか、特異メソッド/クラスとはなんなのか、Rails の魔法はどのようにできているのかが理解できる。抽象的な概念も順を追ってやさしく解説してくれる。
+
+[%url% %mediumimage%]
+
+[%url% %title% / %author% 著. %publisher%, %publishedyear%, %pages%p.]
+</amazon>
