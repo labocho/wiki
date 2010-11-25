@@ -85,3 +85,84 @@ end
 # filter の返り値にそのまま使うとフィルターチェーンを中断できる
 render_error 404
 ```
+
+by メソッド
+===========
+
+Restful Authentication や Devise を使ったアプリケーションで、functional
+test を書く際に、下記のような表記を可能にする。 どちらも認証に使う Model
+を User と決め打ちしているので、必要に応じて修正する必要がある。
+
+``` {.ruby}
+# test/fixtures/users.yml
+fixture_user_name:
+  email: ...
+
+# ブロック中を users(:fixture_user_name) からのリクエストとしてテスト
+by :fixture_user_name do
+  get :index
+  assert_response :success
+end
+
+# lambda を users(:fixture_user_name) からのリクエストとしてテスト
+get_index = lambda {
+  get :index
+  assert_response :success
+}
+by :fixture_user_name, get_index
+```
+
+Restful Authentication 用
+-------------------------
+
+``` {.ruby}
+# test/test_helper.rb
+class ActiveSupport::TestCase
+  def by(fixture_key, proc = nil)
+    if fixture_key
+      @request.session[:user_id] = users(fixture_key).id
+      user_name = fixture_key.to_s.humanize
+    else
+      user_name = "Anonymous user"
+    end
+
+    if proc
+      proc.call(user_name)
+    else
+      yield(user_name)
+    end
+
+    @request.session.delete :user_id
+  end
+end
+```
+
+Devise 用
+---------
+
+``` {.ruby}
+# test/test_helper.rb
+class ActiveSupport::TestCase
+  def by(fixture_key, proc = nil)
+    if fixture_key
+      sign_in :user, users(fixture_key)
+      user_name = fixture_key.to_s.humanize
+    else
+      user_name = "Anonymous user"
+    end
+
+    if proc
+      proc.call(user_name)
+    else
+      yield(user_name)
+    end
+
+    sign_out users(fixture_key)
+  end
+end
+
+# もちろん下記も必要
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
+```
