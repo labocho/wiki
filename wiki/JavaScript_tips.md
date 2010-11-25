@@ -33,7 +33,7 @@ false、undefined、null、0、NaN、空文字列 のみが falsy。 それ以�
 それぞれのメタ文字の意味については下記参照。
 
 -   [RegExp - MDC Doc
-    Center:https://developer.mozilla.org/ja/Core\_JavaScript\_1.5\_Reference/Global\_Objects/RegExp](/wiki/RegExp - MDC Doc Center:https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp "wikilink")
+    Center](https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp)
 
 JavaScript URI / ブックマークレット
 ===================================

@@ -19,7 +19,7 @@ undefined、null、0、NaN、または空文字列 ("") でない任意の値、
 
 それぞれのメタ文字の意味については下記参照。
 
-* [[RegExp - MDC Doc Center:https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp]]
+* [https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp RegExp - MDC Doc Center]
 
 = JavaScript URI / ブックマークレット =
 <tt>javascript:</tt> から始まる文字列を JavaScript URI と呼び、<tt>a</tt> 要素の <tt>href</tt> 属性の値としたり、ブックマークレットとして使ったり、ロケーションバー (アドレスバー) で実行したりできる。
