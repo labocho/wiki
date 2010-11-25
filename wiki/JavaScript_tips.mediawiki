@@ -10,6 +10,17 @@ undefined、null、0、NaN、または空文字列 ("") でない任意の値、
 [https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if...else if...else - MDC]
 </blockquote>
 
+= 正規表現中のメタ文字 =
+下記の文字はメタ文字なので、文字自体を示す際には <tt>\</tt> (バックスラッシュ) でエスケープする必要がある。
+
+* <tt>\^$*+?.()|{}[]</tt>
+* <tt>(?</tt> に後続する <tt>:=!</tt>
+* <tt>[]</tt> 中の <tt>-</tt>
+
+それぞれのメタ文字の意味については下記参照。
+
+* [[RegExp - MDC Doc Center:https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp]]
+
 = JavaScript URI / ブックマークレット =
 <tt>javascript:</tt> から始まる文字列を JavaScript URI と呼び、<tt>a</tt> 要素の <tt>href</tt> 属性の値としたり、ブックマークレットとして使ったり、ロケーションバー (アドレスバー) で実行したりできる。
 

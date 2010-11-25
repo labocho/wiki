@@ -20,6 +20,21 @@ false、undefined、null、0、NaN、空文字列 のみが falsy。 それ以�
 > [<https://developer.mozilla.org/ja/JavaScript/Reference/Statements/if>...else
 > if...else - MDC]
 
+正規表現中のメタ文字
+====================
+
+下記の文字はメタ文字なので、文字自体を示す際には `\` (バックスラッシュ)
+でエスケープする必要がある。
+
+-   `\^$*+?.()|{}[]`
+-   `(?` に後続する `:=!`
+-   `[]` 中の `-`
+
+それぞれのメタ文字の意味については下記参照。
+
+-   [RegExp - MDC Doc
+    Center:https://developer.mozilla.org/ja/Core\_JavaScript\_1.5\_Reference/Global\_Objects/RegExp](/wiki/RegExp - MDC Doc Center:https://developer.mozilla.org/ja/Core_JavaScript_1.5_Reference/Global_Objects/RegExp "wikilink")
+
 JavaScript URI / ブックマークレット
 ===================================
 
