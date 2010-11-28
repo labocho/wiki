@@ -191,7 +191,8 @@ Access denied for user 'root'@'localhost' (using password: YES)
 
 rake db:migrate 時などに、上記のエラーが出た場合、database.yml
 をチェック。MySQL の場合、**user** ではなく **username**
-とするのが正しいみたい。
+とするのが正しいみたい。user になってると無視されて、root
+としてアクセスしようとする。
 
     production:
       adapter: mysql

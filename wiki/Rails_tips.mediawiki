@@ -141,7 +141,7 @@ config.gem "diff-lcs", :lib => "diff/lcs"
 
 = database.yml =
 == Access denied for user 'root'@'localhost' (using password: YES) ==
-rake db:migrate 時などに、上記のエラーが出た場合、database.yml をチェック。MySQL の場合、'''user''' ではなく '''username''' とするのが正しいみたい。
+rake db:migrate 時などに、上記のエラーが出た場合、database.yml をチェック。MySQL の場合、'''user''' ではなく '''username''' とするのが正しいみたい。user になってると無視されて、root としてアクセスしようとする。
 <pre>
 production:
   adapter: mysql
