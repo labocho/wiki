@@ -166,3 +166,35 @@ class ActionController::TestCase
   include Devise::TestHelpers
 end
 ```
+
+environment.rb
+==============
+
+gem 名とライブラリ名が異なる場合
+--------------------------------
+
+gem 名とライブラリ名が異なる場合、config.gem に :lib
+オプションでライブラリ名を指定しなければならない。これをしていないとサーバ起動時に
+Missing these required gems: などと怒られる。典型的には gem
+名がハイフン入りで、ライブラリ名がスラッシュ入りになるもの。
+
+``` {.ruby}
+# config/environment.rb
+config.gem "diff-lcs", :lib => "diff/lcs"
+```
+
+database.yml
+============
+
+Access denied for user 'root'@'localhost' (using password: YES)
+---------------------------------------------------------------
+
+rake db:migrate 時などに、上記のエラーが出た場合、database.yml
+をチェック。MySQL の場合、**user** ではなく **username**
+とするのが正しいみたい。
+
+    production:
+      adapter: mysql
+      database: database_name
+      username: database_user
+      password: database_password
