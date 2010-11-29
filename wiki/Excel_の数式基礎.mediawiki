@@ -277,3 +277,90 @@
 ただし、通常は数式の入力中にセルをクリックして参照するのがもっとも簡単です。四角形のセル範囲はドラッグで、コンマ区切りはCtrlを押しながらクリック/ドラッグで実現できます。
 
 <br style="clear:both" />
+
+= 絶対参照と相対参照 =
+{|class="wikitable" style="float:left"
+!style="width:3em;"| 
+!style="width:3em;"| A
+!style="width:3em;"| B
+!style="width:3em;"| C
+!style="width:3em;"| D
+!style="width:3em;"| E
+!style="width:3em;"| F
+!style="width:3em;"| G
+|-
+! 1
+|
+|
+|
+|
+|
+|
+|
+|-
+! 2
+|
+|style="background:#fada7a"| =X1
+|style="background:#fada7a"| =Y1
+|
+|style="background:#d2da7a"| =$X1
+|style="background:#d2da7a"| =$X1
+|
+|-
+! 3
+|
+|style="background:#fada7a"| =X2
+|style="background:#fada7a"| =Y2
+|
+|style="background:#d2da7a"| =$X2
+|style="background:#d2da7a"| =$X2
+|
+|-
+! 4
+|
+|
+|
+|
+|
+|
+|
+|-
+! 5
+|
+|style="background:#9fb8cd"| =X$1
+|style="background:#9fb8cd"| =Y$1
+|
+|style="background:#b88472"| =$X$1
+|style="background:#b88472"| =$X$1
+|
+|-
+! 6
+|
+|style="background:#9fb8cd"| =X$1
+|style="background:#9fb8cd"| =Y$1
+|
+|style="background:#b88472"| =$X$1
+|style="background:#b88472"| =$X$1
+|
+|-
+! 7
+|
+|
+|
+|
+|
+|
+|
+|}
+
+セル(セル範囲含む)の指定には絶対参照と相対参照の2種類があります。これはセル指定の列名、行番号の前に$があるかないかで指定します。$があれば絶対参照、なければ相対参照です。
+
+この違いは、このセル参照を含むセルを別のセルにコピーしたときに現れます。
+
+絶対参照の場合は、別のセルにコピーした際にも参照するセルは変化しません。相対参照の場合は、コピー元とコピー先のセルの位置関係に応じて参照するセルが変化します。
+
+付表の例ではB2、E2、B5、E5にそれぞれさまざまな方法でX1への参照を書き、それぞれを横と下にコピーしたものです。$のついた部分は参照先が変化せず、ついていない部分はセルの位置に応じて参照先が変化しています。
+
+絶対参照と相対参照の切り替えは、数式の編集時セル指定の部分にカーソルがある状態でF4キーを押すのが便利です。F4キーを押すたび、A10 → $A$10→ A$10 → $A10 → A10 ... のように変化します。
+
+<br style="clear:both" />
