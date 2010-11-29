@@ -199,3 +199,18 @@ rake db:migrate 時などに、上記のエラーが出た場合、database.yml
       database: database_name
       username: database_user
       password: database_password
+
+本
+==
+
+<amazon locale="jp" id="4274067858">
+
+%title%
+-------
+
+なんだかんだでよくできてる1冊。環境構築、チュートリアル、主要部分の解説、デプロイまで、一通り網羅している。初学時はもちろん、慣れてきてからも、いろいろ発見がある。文章も読みやすい。
+
+[%url% %mediumimage%]
+
+[%url% %title% / %author% 著. %publisher%, %publishedyear%, %pages%p.]
+</amazon>
