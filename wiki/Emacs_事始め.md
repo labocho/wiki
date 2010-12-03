@@ -35,8 +35,8 @@ emacs は起動時に \~/.emacs または \~/.emacs.el
 
 |Windows XP|C:\\Documents and Settings\\[ユーザー名]|
 |----------|----------------------------------------|
-|Windows Vista|C:\\Users\\[ユーザー名]\\AddData\\Roaming|
-|Mac OSX|/Users/[ユーザー名]|
+|Windows Vista|C:\\Users\\[ユーザー名]\\AppData\\Roaming|
+|Mac OS X|/Users/[ユーザー名]|
 |Linux|/home/[ユーザー名]|
 
 チュートリアル

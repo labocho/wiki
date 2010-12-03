@@ -18,9 +18,9 @@ emacs は起動時に ~/.emacs または ~/.emacs.el を読みにいく。また
 | C:\Documents and Settings\[ユーザー名]
 |-
 ! Windows Vista
-| C:\Users\[ユーザー名]\AddData\Roaming
+| C:\Users\[ユーザー名]\AppData\Roaming
 |-
-! Mac OSX
+! Mac OS X
 | /Users/[ユーザー名]
 |-
 ! Linux
