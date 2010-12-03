@@ -8,6 +8,9 @@ Mac / Windows それぞれ複数の端末で同じように使いたい。Textma
 [http://www.gnu.org/software/emacs/ GNU Emacs - GNU Project - Free Software Foundation (FSF)] からリンクをたどって [ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip emacs-23.2-bin-i386.zip] をダウンロード。
 とくにインストーラなどはなく、<tt>[展開したフォルダ]/bin/runemacs.exe</tt> で起動できる。
 
+== Mac OS X ==
+[http://emacsformacosx.com/ GNU Emacs For Mac OS X] から [http://emacsformacosx.com/emacs-builds/Emacs-23.2-universal-10.6.3.dmg Emacs-23.2-universal-10.6.3.dmg] をダウンロード。ダウンロードした dmg を開いて Emacs アイコンを Application フォルダにドラッグ&ドロップすればインストール完了。
+
 = 設定ファイル =
 emacs は起動時に ~/.emacs、~/.emacs.el、~/.emacs.d/init.el を読みにいく。
 

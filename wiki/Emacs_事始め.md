@@ -25,6 +25,14 @@ Windows
 とくにインストーラなどはなく、`[展開したフォルダ]/bin/runemacs.exe`
 で起動できる。
 
+Mac OS X
+--------
+
+[GNU Emacs For Mac OS X](http://emacsformacosx.com/) から
+[Emacs-23.2-universal-10.6.3.dmg](http://emacsformacosx.com/emacs-builds/Emacs-23.2-universal-10.6.3.dmg)
+をダウンロード。ダウンロードした dmg を開いて Emacs アイコンを
+Application フォルダにドラッグ&ドロップすればインストール完了。
+
 設定ファイル
 ============
 
