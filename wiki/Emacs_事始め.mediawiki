@@ -7,7 +7,7 @@ Mac / Windows それぞれ複数の端末で同じように使いたい。Textma
 複数環境で同じように使いたいので GNU Emacs を使用。
 
 == Windows ==
-[http://www.gnu.org/software/emacs/ GNU Emacs - GNU Project - Free Software Foundation (FSF)] からリンクをたどって [ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip] をダウンロード。
+[http://www.gnu.org/software/emacs/ GNU Emacs - GNU Project - Free Software Foundation (FSF)] からリンクをたどって [ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip emacs-23.2-bin-i386.zip] をダウンロード。
 とくにインストーラなどはなく、<tt>[展開したフォルダ]/bin/runemacs.exe</tt> で起動できる。
 
 = 設定ファイル =

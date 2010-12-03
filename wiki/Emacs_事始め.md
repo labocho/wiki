@@ -22,7 +22,7 @@ Windows
 
 [GNU Emacs - GNU Project - Free Software Foundation
 (FSF)](http://www.gnu.org/software/emacs/) からリンクをたどって
-[1](ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip)
+[emacs-23.2-bin-i386.zip](ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip)
 をダウンロード。
 とくにインストーラなどはなく、`[展開したフォルダ]/bin/runemacs.exe`
 で起動できる。
