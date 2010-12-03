@@ -30,6 +30,25 @@ emacs は起動時に ~/.emacs、~/.emacs.el、~/.emacs.d/init.el を読みに�
 | /home/[ユーザー名]
 |}
 
+= キー =
+{|class="wikitable"
+! Emacs
+! Windows 等
+! Mac
+|-
+! C
+| Ctrl
+| control
+|-
+! M
+| Alt
+| option
+|-
+! RET
+| Enter
+| return
+|}
+
 = チュートリアル =
 起動すると Emacs Tutorial と書かれたリンクがあるのでクリックする(か、TABでカーソル移動してRET)。
 わかりやすいチュートリアルなので、ちょっと長いけど全部読む。

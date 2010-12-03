@@ -47,6 +47,15 @@ emacs は起動時に \~/.emacs、\~/.emacs.el、\~/.emacs.d/init.el
 |Mac OS X|/Users/[ユーザー名]|
 |Linux|/home/[ユーザー名]|
 
+キー
+====
+
+|Emacs|Windows 等|Mac|
+|-----|----------|---|
+|C|Ctrl|control|
+|M|Alt|option|
+|RET|Enter|return|
+
 チュートリアル
 ==============
 
