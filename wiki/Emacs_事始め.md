@@ -28,8 +28,8 @@ Windows
 設定ファイル
 ============
 
-emacs は起動時に \~/.emacs または \~/.emacs.el
-を読みにいく。また、\~/.emacs.d が作成される。
+emacs は起動時に \~/.emacs、\~/.emacs.el、\~/.emacs.d/init.el
+を読みにいく。
 
 \~/ のパスは下記の通り。
 
