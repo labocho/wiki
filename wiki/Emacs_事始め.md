@@ -10,12 +10,10 @@ layout: wiki
 ====
 
 Mac / Windows それぞれ複数の端末で同じように使いたい。Textmate
-のかわりに Rails のプログラミングに使いたい。
+のかわりに Rails アプリケーションの開発に使いたい。
 
 インストール
 ============
-
-複数環境で同じように使いたいので GNU Emacs を使用。
 
 Windows
 -------
@@ -37,7 +35,8 @@ emacs は起動時に \~/.emacs または \~/.emacs.el
 
 |Windows XP|C:\\Documents and Settings\\[ユーザー名]|
 |----------|----------------------------------------|
-|Mac OSX|/Users/home/[ユーザー名]|
+|Windows Vista|C:\\Users\\[ユーザー名]\\AddData\\Roaming|
+|Mac OSX|/Users/[ユーザー名]|
 |Linux|/home/[ユーザー名]|
 
 チュートリアル

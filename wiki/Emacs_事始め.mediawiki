@@ -1,11 +1,9 @@
 あこがれのエディタ emacs を使いはじめてみたのでメモ。
 
 = 目標 =
-Mac / Windows それぞれ複数の端末で同じように使いたい。Textmate のかわりに Rails のプログラミングに使いたい。
+Mac / Windows それぞれ複数の端末で同じように使いたい。Textmate のかわりに Rails アプリケーションの開発に使いたい。
 
 = インストール =
-複数環境で同じように使いたいので GNU Emacs を使用。
-
 == Windows ==
 [http://www.gnu.org/software/emacs/ GNU Emacs - GNU Project - Free Software Foundation (FSF)] からリンクをたどって [ftp://ftp.ring.gr.jp/pub/GNU/emacs/windows/emacs-23.2-bin-i386.zip emacs-23.2-bin-i386.zip] をダウンロード。
 とくにインストーラなどはなく、<tt>[展開したフォルダ]/bin/runemacs.exe</tt> で起動できる。
@@ -19,8 +17,11 @@ emacs は起動時に ~/.emacs または ~/.emacs.el を読みにいく。また
 ! Windows XP
 | C:\Documents and Settings\[ユーザー名]
 |-
+! Windows Vista
+| C:\Users\[ユーザー名]\AddData\Roaming
+|-
 ! Mac OSX
-| /Users/home/[ユーザー名]
+| /Users/[ユーザー名]
 |-
 ! Linux
 | /home/[ユーザー名]
