@@ -54,6 +54,10 @@ emacs は起動時に \~/.emacs、\~/.emacs.el、\~/.emacs.d/init.el
 と書かれたリンクがあるのでクリックする(か、TABでカーソル移動してRET)。
 わかりやすいチュートリアルなので、ちょっと長いけど全部読む。
 
+GNU Emacs for Mac OS X
+では、英語のチュートリアルになってしまうので、メニューから Help -\>
+Emacs Tutorial (choose language)... を実行。「Japanese」と入力して RET。
+
 設定のための準備
 ================
 
