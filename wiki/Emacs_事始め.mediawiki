@@ -61,5 +61,12 @@ GNU Emacs for Mac OS X では、英語のチュートリアルになってしま
 * [http://d.hatena.ne.jp/tomoya/20090124/1232822594 Emacs(中略)設定講座 その2「elisp のインストールと設定編」。 - 日々、とんは語る。]
 * [http://d.hatena.ne.jp/tomoya/20090215/1234692209 Emacs設定講座 その3「scratch バッファと eval(評価)」。 - 日々、とんは語る。]
 
+= elisp =
+== color-theme ==
+
+M-x install-elisp-from-emacswiki RET
+color-theme RET
+C-c C-c
+
 = 参考ページ =
 [http://d.hatena.ne.jp/rubikitch/20090127/emacsnewbies Emacs 初心者向け記事へのリンク集 - (rubikitch loves (Emacs Ruby CUI Books))]
