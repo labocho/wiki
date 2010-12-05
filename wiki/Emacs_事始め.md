@@ -80,6 +80,17 @@ Emacs Tutorial (choose language)... を実行。「Japanese」と入力して RE
 -   [Emacs設定講座 その3「scratch バッファと eval(評価)」。 -
     日々、とんは語る。](http://d.hatena.ne.jp/tomoya/20090215/1234692209)
 
+elisp
+=====
+
+color-theme
+-----------
+
+[1](http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz)
+
+    (require 'color-theme)
+    (color-theme-dark-laptop)
+
 参考ページ
 ==========
 
