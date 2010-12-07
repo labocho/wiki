@@ -98,6 +98,8 @@ Emacs Tutorial (choose language)... を実行。「Japanese」と入力して RE
     日々、とんは語る。](http://d.hatena.ne.jp/tomoya/20090124/1232822594)
 -   [Emacs設定講座 その3「scratch バッファと eval(評価)」。 -
     日々、とんは語る。](http://d.hatena.ne.jp/tomoya/20090215/1234692209)
+-   [もう初心者なんて言わせない、Anything で始まる Emacs 道。 -
+    日々、とんは語る。](http://d.hatena.ne.jp/tomoya/20090423/1240456834)
 
 elisp
 =====
