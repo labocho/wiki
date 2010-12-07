@@ -37,15 +37,34 @@ Application フォルダにドラッグ&ドロップすればインストール�
 ============
 
 emacs は起動時に \~/.emacs、\~/.emacs.el、\~/.emacs.d/init.el
-を読みにいく。
+を読みにいく。どれに起動時実行スクリプトを書いても良いが、.emacs.d
+にまとめたほうが楽なので、\~/.emacs.d/init.el にする。
 
 \~/ のパスは下記の通り。
 
-|Windows XP|C:\\Documents and Settings\\[ユーザー名]|
-|----------|----------------------------------------|
+|Windows XP|C:\\Documents and Settings\\[ユーザー名]\\Application Data|
+|----------|----------------------------------------------------------|
 |Windows Vista|C:\\Users\\[ユーザー名]\\AppData\\Roaming|
 |Mac OS X|/Users/[ユーザー名]|
 |Linux|/home/[ユーザー名]|
+
+Dropbox を使った共有
+--------------------
+
+既存の .emacs.d を Dropbox にコピーし、シンボリックリンク /
+ジャンクションをはる。
+
+    # Mac OS X で操作
+    cp -r ~/.emacs.d ~/Dropbox/Application/emacs.d
+    mv ~/.emacs.d ~/.emacs.d.bak
+    ln -s ~/Dropbox/Application/emacs.d ~/.emacs.d
+
+Windows XP では [リンク作成シェル拡張for Windows
+2000/XP](http://www.vector.co.jp/soft/winnt/util/se184746.html)
+を使い、Dropbox 上の emacs.d フォルダを右ボタンドラッグ、 C:\\Documents
+and Settings\\[ユーザー名]\\Application Data
+下でドロップして「リンクを作る」。あとはコマンドプロンプトで emacs.d
+を.emacs.d に変更。
 
 キー
 ====
