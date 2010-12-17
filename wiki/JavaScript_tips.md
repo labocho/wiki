@@ -183,7 +183,8 @@ Array.prototype.compare(other)
 
 ``` {.javascript}
 Array.prototype.compare = function (other) {
-  for (var i = 0; i < Math.min(this.length, other.length); i++) {
+  var i;
+  for (i = 0; i < Math.min(this.length, other.length); i++) {
     if (this[i] < other[i]) {
       return -1;
     } else if (this[i] > other[i]) {
@@ -204,16 +205,19 @@ Array.prototype.shuffle()
 
 配列の要素をランダムに並べ替える。this を返す。
 
+上記の Math.randomInt を使用している。
+
 ``` {.javascript}
 Array.prototype.shuffle = function () {
-  var temp = [];
-  var count = this.length;
-  
-  for (var i = 0; i < count; i++) {
+  var temp, count, i;
+  temp = [];
+  count = this.length;
+
+  for (i = 0; i < count; i++) {
     temp[i] = this[i];
   }
   
-  for (var i = 0; i < count; i++) {
+  for (i = 0; i < count; i++) {
     this[i] = temp.splice(Math.randomInt(0, temp.length -1), 1)[0];
   }
   return this;
