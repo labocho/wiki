@@ -154,6 +154,85 @@ javascript:(function(){location.href = 'http://penguinlab.jp/'; return false;})(
 -   [data URI scheme - Wikipedia, the free
     encyclopedia](http://en.wikipedia.org/wiki/Data_URI_scheme)
 
+組み込みオブジェクトの拡張
+==========================
+
+Math.randomInt(min, max)
+------------------------
+
+min 以上 max 以下の整数をランダムで返す。
+
+``` {.javascript}
+Math.randomInt = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+```
+
+``` {.javascript}
+// 使い方
+Math.randomInt(1, 10);
+```
+
+Array.prototype.compare(other)
+------------------------------
+
+配列を要素ごとに比較し、this が大きければ 1、同じなら 0、other
+が大きければ -1 を返す。
+
+より若いインデックスの要素を優先し、短絡する。要素数が異なる場合、少ない方に合わせる。
+
+``` {.javascript}
+Array.prototype.compare = function (other) {
+  for (var i = 0; i < Math.min(this.length, other.length); i++) {
+    if (this[i] < other[i]) {
+      return -1;
+    } else if (this[i] > other[i]) {
+      return 1;
+    }
+  }
+  return 0;
+};
+```
+
+``` {.javascript}
+// 使い方
+[1, 1, 2].compare([1, 2, 1]); // -1 (引数に指定した配列のほうが大きい)
+```
+
+Array.prototype.shuffle()
+-------------------------
+
+配列の要素をランダムに並べ替える。this を返す。
+
+``` {.javascript}
+Array.prototype.shuffle = function () {
+  var temp = [];
+  var count = this.length;
+  
+  for (var i = 0; i < count; i++) {
+    temp[i] = this[i];
+  }
+  
+  for (var i = 0; i < count; i++) {
+    this[i] = temp.splice(Math.randomInt(0, temp.length -1), 1)[0];
+  }
+  return this;
+};
+```
+
+``` {.javascript}
+// 使い方
+[1, 2, 3].shuffle() //=> [2, 1, 3] など
+```
+
+文字列中の変数展開
+==================
+
+-   [404 Blog Not Found:javascript -
+    Interpolatorで変数展開](http://blog.livedoor.jp/dankogai/archives/50665223.html)
+
+`new Interpolator('#{', '}')` とすれば Ruby 風の表記も可能。とても便利。
+
 本
 ==
 
