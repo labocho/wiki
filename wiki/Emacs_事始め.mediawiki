@@ -76,10 +76,90 @@ GNU Emacs for Mac OS X では、英語のチュートリアルになってしま
 
 = elisp =
 == color-theme ==
-[http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz]
+[http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz]
 <pre>
 (require 'color-theme)
 (color-theme-dark-laptop)
 </pre>
+
+== 背景の透明度変更 ==
+<pre>
+;; 背景のアルファ値を90%に
+(modify-all-frames-parameters
+ (list (cons 'alpha '(90 90 90 90))))
+</pre>
+
+== ruby-electric ==
+<pre>
+;; Ruby 補完
+(require 'ruby-electric)
+</pre>
+
+== ido ==
+<pre>
+;; ファイル名補完
+;; Interactively Do Things (highly recommended, but not strictly required)
+(require 'ido)
+(ido-mode t)
+</pre>
+
+== rinari ==
+Rails 関係のコマンド。
+
+<pre>
+cd ~/.emacs.d/elisp
+git clone git://github.com/eschulte/rinari.git
+cd rinari
+git submodule init
+git submodule update
+</pre>
+
+<pre>
+;; Rinari
+(add-to-list 'load-path "~/.emacs.d/elisp/rinari")
+(require 'rinari)
+</pre>
+
+== rhtml-mode ==
+RHTML のメジャーモード。
+
+<pre>
+cd ~/.emacs.d/elisp
+git clone git://github.com/eschulte/rhtml.git
+</pre>
+
+<pre>
+;; rhtml-mode
+(add-to-list 'load-path "~/.emacs.d/elisp/rhtml")
+(require 'rhtml-mode)
+(add-hook 'rhtml-mode-hook
+    (lambda () (rinari-launch)))
+</pre>
+
+== yasnippet ==
+スニペット。
+
+<pre>
+cd ~
+curl -O http://yasnippet.googlecode.com/files/yasnippet-bundle-0.6.1c.el.tgz
+tar zxvf yasnippet-bundle-0.6.1c.el.tgz
+mv yasnippet-bundle.el ~/.emacs.d/elisp/yasnippet-bundle.el
+</pre>
+
+Rails 用のスニペット集。
+
+<pre>
+cd ~/.emacs.d/elisp
+git clone git://github.com/eschulte/yasnippets-rails.git
+</pre>
+
+<pre>
+;; yasnippet-bundle
+(require 'yasnippet-bundle)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/elisp/yasnippets-rails/rails-snippets")
+</pre>
+
 = 参考ページ =
-[http://d.hatena.ne.jp/rubikitch/20090127/emacsnewbies Emacs 初心者向け記事へのリンク集 - (rubikitch loves (Emacs Ruby CUI Books))]
+* [http://d.hatena.ne.jp/rubikitch/20090127/emacsnewbies Emacs 初心者向け記事へのリンク集 - (rubikitch loves (Emacs Ruby CUI Books))]
+* [http://d.hatena.ne.jp/willnet/20090110/1231595231 emacsとRinariで快適Rails開発！ - おもしろWEBサービス開発日記]

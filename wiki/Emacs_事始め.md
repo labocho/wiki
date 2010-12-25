@@ -107,13 +107,86 @@ elisp
 color-theme
 -----------
 
-[1](http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz)
+[<http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz>](http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz)
 
     (require 'color-theme)
     (color-theme-dark-laptop)
 
+背景の透明度変更
+----------------
+
+    ;; 背景のアルファ値を90%に
+    (modify-all-frames-parameters
+     (list (cons 'alpha '(90 90 90 90))))
+
+ruby-electric
+-------------
+
+    ;; Ruby 補完
+    (require 'ruby-electric)
+
+ido
+---
+
+    ;; ファイル名補完
+    ;; Interactively Do Things (highly recommended, but not strictly required)
+    (require 'ido)
+    (ido-mode t)
+
+rinari
+------
+
+Rails 関係のコマンド。
+
+    cd ~/.emacs.d/elisp
+    git clone git://github.com/eschulte/rinari.git
+    cd rinari
+    git submodule init
+    git submodule update
+
+    ;; Rinari
+    (add-to-list 'load-path "~/.emacs.d/elisp/rinari")
+    (require 'rinari)
+
+rhtml-mode
+----------
+
+RHTML のメジャーモード。
+
+    cd ~/.emacs.d/elisp
+    git clone git://github.com/eschulte/rhtml.git
+
+    ;; rhtml-mode
+    (add-to-list 'load-path "~/.emacs.d/elisp/rhtml")
+    (require 'rhtml-mode)
+    (add-hook 'rhtml-mode-hook
+        (lambda () (rinari-launch)))
+
+yasnippet
+---------
+
+スニペット。
+
+    cd ~
+    curl -O http://yasnippet.googlecode.com/files/yasnippet-bundle-0.6.1c.el.tgz
+    tar zxvf yasnippet-bundle-0.6.1c.el.tgz
+    mv yasnippet-bundle.el ~/.emacs.d/elisp/yasnippet-bundle.el
+
+Rails 用のスニペット集。
+
+    cd ~/.emacs.d/elisp
+    git clone git://github.com/eschulte/yasnippets-rails.git
+
+    ;; yasnippet-bundle
+    (require 'yasnippet-bundle)
+    (yas/initialize)
+    (yas/load-directory "~/.emacs.d/elisp/yasnippets-rails/rails-snippets")
+
 参考ページ
 ==========
 
-[Emacs 初心者向け記事へのリンク集 - (rubikitch loves (Emacs Ruby CUI
-Books))](http://d.hatena.ne.jp/rubikitch/20090127/emacsnewbies)
+-   [Emacs 初心者向け記事へのリンク集 - (rubikitch loves (Emacs Ruby CUI
+    Books))](http://d.hatena.ne.jp/rubikitch/20090127/emacsnewbies)
+-   [emacsとRinariで快適Rails開発！ -
+    おもしろWEBサービス開発日記](http://d.hatena.ne.jp/willnet/20090110/1231595231)
+
