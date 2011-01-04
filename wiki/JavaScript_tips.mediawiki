@@ -197,6 +197,16 @@ HTML の script タグ中に JavaScript を記述する場合、HTML コメン�
 
 ただし、コメントの終わりをしめす --> だけはそのまま書けない。書くケースも思いつかないが、そのときは、文字列連結なりなんなりでお茶を濁そう。
 
+XHTMLなら下記のほうが適切か。
+
+<source lang="xml">
+<script>
+<![CDATA[
+  alert('</script>');
+]]>
+</script>
+</source>
+
 = 本 =
 <amazon locale="jp" id="4873113911">
 == %title% ==
