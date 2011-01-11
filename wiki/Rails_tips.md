@@ -200,6 +200,89 @@ rake db:migrate 時などに、上記のエラーが出た場合、database.yml
       username: database_user
       password: database_password
 
+関連と fixture
+==============
+
+fixture で外部キーの \_id を省略すると参照テーブルの fixture
+ラベルを指定できる。
+
+``` {.ruby}
+class Entry < ActiveRecord::Base
+  has_many :comments # 必ずしも必要でない
+end
+
+class Comment < ActiveRecord::Base
+  belongs_to :entry
+end
+```
+
+    #entries.yml
+    about_me:
+      title: About me
+      body: foo bar
+
+    #comments.yml
+    for_about_me:
+      entry: about_me
+      body: baz
+
+ここで `entry` と書いてるのは `belongs_to :entry`
+と指定したからで、クラス名や外部キー名、テーブル名やフィクスチャのファイル名とは直接関係ない。
+
+たとえば、
+
+``` {.ruby}
+class Person < ActiveRecord::Base
+  belongs_to :parent, :class_name => 'Person', :foreign_key => :parent_user_id
+end
+```
+
+とした場合、
+
+    #people.yml
+    anakin:
+      name: Anakin Skywalker
+
+    luke:
+      name: Luke Skywalker
+      parent: anakin
+
+と書ける。
+
+fixture で id を記述しなかった場合の id
+---------------------------------------
+
+fixture で id を記述しなかった場合、自動で id が割り振られるが、この id
+は下記のコードで生成されている。
+
+``` {.ruby}
+# File activerecord/lib/active_record/fixtures.rb
+MAX_ID = 2 ** 30 - 1
+
+def self.identify(label)
+  Zlib.crc32(label.to_s) % MAX_ID
+end
+```
+
+引数の `label` はフィクスチャのラベル。`users(:labocho)` の `:labocho`
+である。
+
+`Zlib.crc32` は文字列から CRC
+チェックサム値を生成するメソッドなので、`label` が同じなら同じ値が返る
+(いちおう衝突の可能性もある)。
+
+どんな id が割り振られるかは下記のコマンドで確認出来る。
+
+    # rails 環境で
+    ruby script/runner "puts Fixtures.identify(:labocho)" 
+
+    # ruby だけで
+    ruby -r zlib -e "puts Zlib.crc32('labocho') % (2 ** 30 - 1)"
+
+file\_column のテスト時にはレコードの id
+をディレクトリ名に使う必要があるが、この方法で割り振られる id
+を確認しておけば、fixture に id を記述しなくともテストできる。
+
 本
 ==
 

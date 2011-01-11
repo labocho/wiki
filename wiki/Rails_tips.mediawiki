@@ -149,6 +149,85 @@ production:
   username: database_user
   password: database_password
 </pre>
+
+= 関連と fixture =
+fixture で外部キーの _id を省略すると参照テーブルの fixture ラベルを指定できる。
+
+<source lang="ruby">
+class Entry < ActiveRecord::Base
+  has_many :comments # 必ずしも必要でない
+end
+
+class Comment < ActiveRecord::Base
+  belongs_to :entry
+end
+</source>
+
+<pre>
+#entries.yml
+about_me:
+  title: About me
+  body: foo bar
+
+#comments.yml
+for_about_me:
+  entry: about_me
+  body: baz
+</pre>
+
+ここで <tt>entry</tt> と書いてるのは <tt>belongs_to :entry</tt> と指定したからで、クラス名や外部キー名、テーブル名やフィクスチャのファイル名とは直接関係ない。
+
+たとえば、
+
+<source lang="ruby">
+class Person < ActiveRecord::Base
+  belongs_to :parent, :class_name => 'Person', :foreign_key => :parent_user_id
+end
+</source>
+
+とした場合、
+
+<pre>
+#people.yml
+anakin:
+  name: Anakin Skywalker
+
+luke:
+  name: Luke Skywalker
+  parent: anakin
+</pre>
+
+と書ける。
+
+== fixture で id を記述しなかった場合の id ==
+fixture で id を記述しなかった場合、自動で id が割り振られるが、この id は下記のコードで生成されている。
+
+<source lang="ruby">
+# File activerecord/lib/active_record/fixtures.rb
+MAX_ID = 2 ** 30 - 1
+
+def self.identify(label)
+  Zlib.crc32(label.to_s) % MAX_ID
+end
+</source>
+
+引数の <tt>label</tt> はフィクスチャのラベル。<tt>users(:labocho)</tt> の <tt>:labocho</tt> である。
+
+<tt>Zlib.crc32</tt> は文字列から CRC チェックサム値を生成するメソッドなので、<tt>label</tt> が同じなら同じ値が返る (いちおう衝突の可能性もある)。
+
+どんな id が割り振られるかは下記のコマンドで確認出来る。
+
+<pre>
+# rails 環境で
+ruby script/runner "puts Fixtures.identify(:labocho)" </pre>
+
+<pre>
+# ruby だけで
+ruby -r zlib -e "puts Zlib.crc32('labocho') % (2 ** 30 - 1)"
+</pre>
+
+file_column のテスト時にはレコードの id をディレクトリ名に使う必要があるが、この方法で割り振られる id を確認しておけば、fixture に id を記述しなくともテストできる。
+
 = 本 =
 <amazon locale="jp" id="4274067858">
 == %title% ==
