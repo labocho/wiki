@@ -40,6 +40,14 @@ kindle.com / free.kindle.com
 のメールアドレスには許可したメールアドレスからしか文書を送れない。[<https://www.amazon.com/gp/digital/fiona/manage>](https://www.amazon.com/gp/digital/fiona/manage)
 から許可するメールアドレスを追加することが出来る。
 
+Instapaper との連携
+-------------------
+
+[<http://www.instapaper.com/user/kindle>](http://www.instapaper.com/user/kindle)
+で設定しておけば、未読の記事を定期的 (毎日 or 毎週) に kindle.com /
+free.kindle.com メールアドレスへ送信してくれる。詳しくは先に挙げた URL
+で。
+
 読み上げ
 ========
 
