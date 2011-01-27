@@ -36,6 +36,10 @@ Kindle の場合、どちらに送信しても WiFi で同期され、課金さ�
 を「convert」としておくと、PDF
 そのものでなく、テキストを抽出したものが同期される。
 
+kindle.com / free.kindle.com
+のメールアドレスには許可したメールアドレスからしか文書を送れない。[<https://www.amazon.com/gp/digital/fiona/manage>](https://www.amazon.com/gp/digital/fiona/manage)
+から許可するメールアドレスを追加することが出来る。
+
 読み上げ
 ========
 

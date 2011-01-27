@@ -12,6 +12,8 @@ Kindle を購入すると、専用のメールアドレスが 2 つ (ドメイ�
 
 なお、PDF を送信する場合、メールの Subject を「convert」としておくと、PDF そのものでなく、テキストを抽出したものが同期される。
 
+kindle.com / free.kindle.com のメールアドレスには許可したメールアドレスからしか文書を送れない。[https://www.amazon.com/gp/digital/fiona/manage https://www.amazon.com/gp/digital/fiona/manage] から許可するメールアドレスを追加することが出来る。
+
 = 読み上げ =
 Text-to-Speech と呼ばれる読み上げ機能がある。
 
