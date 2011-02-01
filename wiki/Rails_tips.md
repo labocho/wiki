@@ -283,6 +283,18 @@ file\_column のテスト時にはレコードの id
 をディレクトリ名に使う必要があるが、この方法で割り振られる id
 を確認しておけば、fixture に id を記述しなくともテストできる。
 
+Rake と script/\* での environment の指定
+=========================================
+
+`rake` は `RAILS_ENV=''environment''`、`script/*` は
+`-e ''environment''`。
+
+    # rake
+    rake db:create RAILS_ENV=production
+
+    # script/*
+    ruby script/runner -e production "puts 'Hello, Rails!'"
+
 本
 ==
 
