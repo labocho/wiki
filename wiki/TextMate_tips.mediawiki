@@ -1,0 +1,9 @@
+[http://macromates.com/ TextMate] についての tips。
+
+= 日本語の表示・入力 =
+
+= プロジェクトで無視するファイル =
+
+= Bundle の追加 =
+
+= Find in Project の代替 =
