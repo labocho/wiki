@@ -393,16 +393,6 @@
 =FIND("1","ABCDEFABCDEF") → #VALUE
 </pre>
 
-== T(値) ==
-<値>が文字列ならその文字列を、文字列以外なら空文字列を返す。普通に空のセルを参照して表示すると0と表示されてしまうので、これを使う。
-
-<pre>
-=T("String") → "String"
-=T(0) → ""
-=T("0") → "0"
-=T(2011/1/1) → ""
-</pre>
-
 == MATCH(検索値, 検索範囲, 検索方法) ==
 {|class="wikitable" style="float:left"
 !style="width:3em;"| 
