@@ -8,13 +8,13 @@ Web 開発者 / デザイナーなら、無視したくてもできない、世�
 Web ブラウザ、Internet Explorer
 のためのバッドノウハウ集。まったく網羅的でも代表的でもありません。
 
-画像送信時の Content-type
+画像送信時の Content-Type
 =========================
 
 普通、フォームの <input type="file" /> で送信される JPEG
-フォーマットのデータの Content-type は image/jpeg、PNG なら image/png
+フォーマットのデータの Content-Type は image/jpeg、PNG なら image/png
 になるが、IEでは image/pjpeg、image/x-png で送信されるので、これらの
-Content-type に対応しなければならない。8.0で確認。
+Content-Type に対応しなければならない。8.0で確認。
 
 HTTP エラーページの表示
 =======================
@@ -60,3 +60,15 @@ DOCTYPE 宣言による挙動の変化
 
 [About Conditional
 Comments](http://msdn.microsoft.com/en-us/library/ms537512(v=vs.85).aspx)
+
+Content-Type ヘッダの無視
+=========================
+
+デフォルトの設定では、レスポンスに含まれる Content-Type
+ヘッダを無視し、データの内容から形式を推測して、表示などを行う。これにより、たとえば
+text/plain のレスポンスが HTML と解釈され、XSS が起こる可能性がある。
+
+サーバ側ではヘッダに `X-Content-Type-Options: nosniff`
+を追加することで、Content-Type
+の推測を無効にできる。ただし、このヘッダに対応しているのは 8 (以降?)
+のみ。
