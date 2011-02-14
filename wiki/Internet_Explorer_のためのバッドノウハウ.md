@@ -11,10 +11,10 @@ Web ブラウザ、Internet Explorer
 画像送信時の Content-Type
 =========================
 
-普通、フォームの <input type="file" /> で送信される JPEG
-フォーマットのデータの Content-Type は image/jpeg、PNG なら image/png
-になるが、IEでは image/pjpeg、image/x-png で送信されるので、これらの
-Content-Type に対応しなければならない。8.0で確認。
+普通、フォームの <input type="file" /> で送信されるデータの Content-Type
+は、JPEG なら image/jpeg、PNG なら image/png になるが、IEでは
+image/pjpeg、image/x-png で送信されるので、これらの Content-Type
+に対応しなければならない。8.0で確認。
 
 HTTP エラーページの表示
 =======================
