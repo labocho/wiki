@@ -37,3 +37,8 @@ Web 開発者 / デザイナーなら、無視したくてもできない、世�
 これは IE に限らない。下記ページが詳しく、網羅的。
 
 [http://hxxk.jp/2008/09/29/0118 hxxk.jp - DOCTYPE スイッチについてのまとめと一覧表 (HTML 5 や IE 8 Beta 2 のモードスイッチなどの情報も含んだ 2008 年版 )]
+
+= 条件分岐コメント =
+<tt>&lt;!--[if IE]&gt;(任意のHTML)&lt;![end if]--&gt;</tt> などの記法で、IEのみ、IEの特定のバージョンのみに適用する HTML を記述できる。他のブラウザでは単にコメントとして無視される。
+
+[http://msdn.microsoft.com/en-us/library/ms537512(v=vs.85).aspx About Conditional Comments]

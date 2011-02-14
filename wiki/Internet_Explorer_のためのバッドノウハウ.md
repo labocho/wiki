@@ -50,3 +50,13 @@ DOCTYPE 宣言による挙動の変化
 [hxxk.jp - DOCTYPE スイッチについてのまとめと一覧表 (HTML 5 や IE 8 Beta
 2 のモードスイッチなどの情報も含んだ 2008 年版
 )](http://hxxk.jp/2008/09/29/0118)
+
+条件分岐コメント
+================
+
+`&lt;!--[if IE]&gt;(任意のHTML)&lt;![end if]--&gt;`
+などの記法で、IEのみ、IEの特定のバージョンのみに適用する HTML
+を記述できる。他のブラウザでは単にコメントとして無視される。
+
+[About Conditional
+Comments](http://msdn.microsoft.com/en-us/library/ms537512(v=vs.85).aspx)
