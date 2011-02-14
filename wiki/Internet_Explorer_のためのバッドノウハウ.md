@@ -1,0 +1,23 @@
+---
+title: Internet Explorer のためのバッドノウハウ
+permalink: wiki/Internet_Explorer_のためのバッドノウハウ/
+layout: wiki
+---
+
+Web 開発者 / デザイナーなら、無視したくてもできない、世界トップシェアの
+Web ブラウザ、Internet Explorer
+のためのバッドノウハウ集。まったく網羅的でも代表的でもありません。
+
+画像送信時の Content-type
+=========================
+
+普通、フォームの <input type="file" /> で送信される JPEG
+フォーマットのデータの Content-type は image/jpeg、PNG なら image/png
+になるが、IEでは image/pjpeg、image/x-png で送信されるので、これらの
+Content-type に対応しなければならない。8.0で確認。
+
+HTTP エラーページの表示
+=======================
+
+404
+などのHTTPエラーをサーバが返した場合、レスポンスボディを表示するのが普通だが、IEではデフォルトでは、レスポンスボディが512バイト以下なら、ブラウザが用意したエラーページを表示する。未確認。
