@@ -48,6 +48,13 @@ Instapaper との連携
 free.kindle.com メールアドレスへ送信してくれる。詳しくは先に挙げた URL
 で。
 
+Web からダウンロード
+--------------------
+
+Kindle には Web ブラウザが搭載されており (Home から Menu -\>
+Experimental -\> Launch Browser)、Web から mobi
+などをダウンロードできる。Instapaper もこの方法で任意時に更新できる。
+
 読み上げ
 ========
 
