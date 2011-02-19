@@ -286,14 +286,17 @@ file\_column のテスト時にはレコードの id
 Rake と script/\* での environment の指定
 =========================================
 
-`rake` は `RAILS_ENV=''environment''`、`script/*` は
-`-e ''environment''`。
+`rake` は `RAILS_ENV=''environment''`、`script/runner` は
+`-e ''environment''`、`script/console` は `''environment''`。
 
     # rake
     rake db:create RAILS_ENV=production
 
-    # script/*
+    # script/runner
     ruby script/runner -e production "puts 'Hello, Rails!'"
+
+    # script/console
+    ruby script/console production
 
 本
 ==

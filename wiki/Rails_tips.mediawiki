@@ -229,7 +229,7 @@ ruby -r zlib -e "puts Zlib.crc32('labocho') % (2 ** 30 - 1)"
 file_column のテスト時にはレコードの id をディレクトリ名に使う必要があるが、この方法で割り振られる id を確認しておけば、fixture に id を記述しなくともテストできる。
 
 = Rake と script/* での environment の指定 =
-<tt>rake</tt> は <tt>RAILS_ENV=''environment''</tt>、<tt>script/*</tt> は <tt>-e ''environment''</tt>。
+<tt>rake</tt> は <tt>RAILS_ENV=''environment''</tt>、<tt>script/runner</tt> は <tt>-e ''environment''</tt>、<tt>script/console</tt> は <tt>''environment''</tt>。
 
 <pre>
 # rake
@@ -237,8 +237,13 @@ rake db:create RAILS_ENV=production
 </pre>
 
 <pre>
-# script/*
+# script/runner
 ruby script/runner -e production "puts 'Hello, Rails!'"
+</pre>
+
+<pre>
+# script/console
+ruby script/console production
 </pre>
 
 = 本 =
