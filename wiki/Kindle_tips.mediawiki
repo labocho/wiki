@@ -29,7 +29,8 @@ Text-to-Speech と呼ばれる読み上げ機能がある。
 変換せず読めるのは azw (mobi) / txt / pdf。azw は専用の形式で mobipocket というフォーマットを元にしているらしい。
 
 == 変換 ==
-kindlegen もしくは、自分の kindle.com / free.kindle.com メールアドレスに添付してメール。kindlegen は epub も変換できる
+kindlegen もしくは、自分の kindle.com / free.kindle.com メールアドレスに添付してメール。kindlegen は epub も変換できる。
+あるいは [http://calibre-ebook.com/ calibre] で読み込んで、mobi に変換する。calibre の変換可能フォーマットついては [http://calibre-ebook.com/user_manual/faq.html#what-formats-does-app-support-conversion-to-from Frequently Asked Questions — calibre User Manual] に記載がある。
 
 = 対応文字種 =
 ラテン文字、キリル文字、漢字、仮名、ハングルに対応。個々の文字については調べていない。

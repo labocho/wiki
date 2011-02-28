@@ -73,7 +73,12 @@ Text-to-Speech と呼ばれる読み上げ機能がある。
 ----
 
 kindlegen もしくは、自分の kindle.com / free.kindle.com
-メールアドレスに添付してメール。kindlegen は epub も変換できる
+メールアドレスに添付してメール。kindlegen は epub も変換できる。
+あるいは [calibre](http://calibre-ebook.com/) で読み込んで、mobi
+に変換する。calibre の変換可能フォーマットついては [Frequently Asked
+Questions — calibre User
+Manual](http://calibre-ebook.com/user_manual/faq.html#what-formats-does-app-support-conversion-to-from)
+に記載がある。
 
 対応文字種
 ==========
