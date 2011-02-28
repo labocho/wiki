@@ -393,6 +393,19 @@
 =FIND("1","ABCDEFABCDEF") → #VALUE
 </pre>
 
+== TEXT(値, 表示形式) ==
+<値>を<表示形式>に基づいて文字列に変換したものを返す。<表示形式>は[セルの書式設定]-[表示形式]-[ユーザー定義]で使われるものと似ているが、完全に同じではない (参照: [http://office.microsoft.com/ja-jp/excel-help/HP010062580.aspx TEXT 関数 - Excel - Microsoft Office], [http://office.microsoft.com/ja-jp/excel-help/HP001216503.aspx ユーザー定義の表示形式を作成または削除する - Excel - Microsoft Office])。不正な表示形式を指定すると#VALUEエラーを返す。また、値に255文字を越える文字列を渡すと#VALUEエラーを返す。
+
+<pre>
+=TEXT(12345, "0") → "12345"
+=TEXT(123.45, "0.0") → "123.5"
+=TEXT(12345, "0_") → #VALUE ※セルの表示形式では有効な _ (スペース挿入) などは使えない
+=TEXT(DATEVALUE("2011/2/28"), "yyyy/m/d") → "2011/2/28"
+=TEXT("2011/02/28", "yyyy/m/d") → "2011/2/28" ※日付を示す文字列は暗黙的に日付と見なされる
+=TEXT("abc", "@") → "abc"
+=TEXT(REPT("a", 256), "@") → #VALUE ※255文字を越える文字列は扱えない
+</pre>
+
 == MATCH(検索値, 検索範囲, 検索方法) ==
 {|class="wikitable" style="float:left"
 !style="width:3em;"| 
