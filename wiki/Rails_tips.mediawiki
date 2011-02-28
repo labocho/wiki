@@ -27,11 +27,11 @@ file_column の仕組みについては [http://d.hatena.ne.jp/elm200/20070730/1
 # ActiveRecord::Base のサブクラス内
 file_column :file
 
-alias :old_file= :file=
-def file=(file)
+def file_with_getting_content_type=(file)
   self.mime = file.content_type #=> 'image/png' とか
-  old_file = file
+  self.file_without_getting_content_type = file
 end
+alias_method_chain :file=, :with_getting_content_type
 </source>
 
 = 404 とか 403 とかを render するメソッド =

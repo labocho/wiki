@@ -50,11 +50,11 @@ file\_column の仕組みについては [file\_column プラグイン内部構�
 # ActiveRecord::Base のサブクラス内
 file_column :file
 
-alias :old_file= :file=
-def file=(file)
+def file_with_getting_content_type=(file)
   self.mime = file.content_type #=> 'image/png' とか
-  old_file = file
+  self.file_without_getting_content_type = file
 end
+alias_method_chain :file=, :with_getting_content_type
 ```
 
 404 とか 403 とかを render するメソッド
