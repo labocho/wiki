@@ -56,6 +56,49 @@ STDOUT.binmode.print ARGF.binmode.read.unpack("m")[0]
 
 IO\#binmode は Windows 環境で必要 (別の環境では無視される)。
 
+定数の探索
+==========
+
+モジュール / クラス内の定数 (もちろんモジュール / クラスも含む)
+を、外側のモジュール / クラス名::定数名 で参照できる。クラスの定義 /
+オープン時にもこの記法は使えるが、素朴に module / class
+文をネストした場合と定数の探索範囲が異なる。
+
+モジュールを名前空間として使う場合、同じ名前空間内のクラスを参照するときに名前空間名を省略したいので、module
+/ class 文のネストに統一したほうがよさそう。
+
+``` {.ruby}
+# モジュールで定数を定義
+module M
+  MODULE_CONSTANT = "MODULE_CONSTANT"
+end
+
+# ネストして記述した場合、外側のモジュール / クラスの定数が探索される
+module M
+  class C
+    puts MODULE_CONSTANT # MODULE_CONSTANT
+  end
+end
+
+# ::で記述した場合、外側のモジュール / クラスの定数が探索されない
+class M::C
+  puts MODULE_CONSTANT # NameError: uninitialized constant M::C::MODULE_CONSTANT
+end
+```
+
+Ruby
+リファレンスマニュアルの記述を参照すると、定数の探索は次の順で行われる。
+
+1.  そのモジュール / クラス
+2.  ネストしていれば外側のモジュール / クラス
+3.  継承元のクラスを近い方から
+
+トップレベルで定義した定数は Object クラスに属するので、3
+の最後に探索される。 2
+の「ネストしていれば」は、定数を参照するときのコンテキストが module /
+class 文でネストしていれば、の意味。定数の定義時は module / class
+文でネストしていようが、:: を使っていようが関係ない。
+
 本
 ==
 
