@@ -298,6 +298,18 @@ Rake と script/\* での environment の指定
     # script/console
     ruby script/console production
 
+parallel\_tests
+===============
+
+parallel\_tests はマルチプロセスでテストを行う
+gem。マルチコア環境では飛躍的にテストが高速化できる。
+
+-   [grosser/parallel\_tests -
+    GitHub](https://github.com/grosser/parallel_tests)
+
+導入は上記ページにある Readme.md がわかりやすいのでそれを参照。
+file\_column と組合わせる場合は、少し調整が必要。
+
 本
 ==
 

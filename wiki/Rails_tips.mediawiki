@@ -246,6 +246,12 @@ ruby script/runner -e production "puts 'Hello, Rails!'"
 ruby script/console production
 </pre>
 
+= parallel_tests =
+parallel_tests はマルチプロセスでテストを行う gem。マルチコア環境では飛躍的にテストが高速化できる。
+* [https://github.com/grosser/parallel_tests grosser/parallel_tests - GitHub]
+導入は上記ページにある Readme.md がわかりやすいのでそれを参照。
+file_column と組合わせる場合は、少し調整が必要。
+
 = 本 =
 <amazon locale="jp" id="4274067858">
 == %title% ==
