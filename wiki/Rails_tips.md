@@ -183,6 +183,13 @@ Missing these required gems: などと怒られる。典型的には gem
 config.gem "diff-lcs", :lib => "diff/lcs"
 ```
 
+Rails 3 の場合は下記の通り
+
+``` {.ruby}
+# Gemfile
+gem "diff-lcs", :require => "diff/lcs"
+```
+
 database.yml
 ============
 

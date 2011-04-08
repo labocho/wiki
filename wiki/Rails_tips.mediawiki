@@ -139,6 +139,12 @@ gem 名とライブラリ名が異なる場合、config.gem に :lib オプシ�
 config.gem "diff-lcs", :lib => "diff/lcs"
 </source>
 
+Rails 3 の場合は下記の通り
+<source lang="ruby">
+# Gemfile
+gem "diff-lcs", :require => "diff/lcs"
+</source>
+
 = database.yml =
 == Access denied for user 'root'@'localhost' (using password: YES) ==
 rake db:migrate 時などに、上記のエラーが出た場合、database.yml をチェック。MySQL の場合、'''user''' ではなく '''username''' とするのが正しいみたい。user になってると無視されて、root としてアクセスしようとする。
