@@ -258,6 +258,27 @@ parallel_tests はマルチプロセスでテストを行う gem。マルチコ�
 導入は上記ページにある Readme.md がわかりやすいのでそれを参照。
 file_column と組合わせる場合は、少し調整が必要。
 
+= HyperEstraier でノードが追加できない =
+Rails とは直接関係ないけど、ほかに書くとこないのでここに。
+
+MacPorts でインストールした HyperEstraier を search_do を通して使っているときに、ノードの追加ができない現象が起こった。
+
+Web インターフェイスでノードを追加しようとしても Some error occurred と言われ、追加できない。ログを見ると <tt>ERROR	DB-ERROR: database problem</tt> というエラーが出ている。この後、ノードマスタを再起動しようとしても、最後に追加しようとしたノードを開けずに失敗する (_node にあるノードのディレクトリを 10 未満にすれば再起動できる)。一方 VM 上の CentOS では、問題なく 11 以上のノードが作成できた。
+
+原因はファイルディスクリプタの上限に引っかかっていたため。MacOS X 10.6 では、デフォルトで上限が 256 である。
+
+<source lang="bash">
+$ ulimit -n
+256
+</source>
+
+これを適当な大きな値に設定したら、11 以上のノードを作成できるようになった。
+
+<source lang="bash">
+$ ulimit -n 1024
+1024
+</source>
+
 = 本 =
 <amazon locale="jp" id="4274067858">
 == %title% ==
