@@ -347,6 +347,148 @@ $ ulimit -n 1024
 1024
 ```
 
+デプロイまでの手順例
+====================
+
+rails 3.0.7 / ruby 1.9.2 on rvm / capistrano / git / passenger 使用。
+
+``` {.bash}
+# local
+$ capify .
+```
+
+config/deploy.rb を編集
+
+``` {.ruby}
+# http://rvm.beginrescueend.com/integration/capistrano/
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+
+# http://d.hatena.ne.jp/kattton/20110121/1295571519
+require 'bundler/capistrano'
+
+#---
+# Excerpted from "Agile Web Development with Rails, 3rd Ed.",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material, 
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose. 
+# Visit http://www.pragmaticprogrammer.com/titles/rails3 for more book information.
+#---
+# be sure to change these
+set :user, '[user]'
+set :domain, '[host]'
+set :application, '[project]'
+set :ssh_options, { :forward_agent => true }
+
+# file paths
+set :repository,  "#{user}@#{domain}:git/#{application}.git"
+set :deploy_to, "/var/www/#{application}" 
+
+# distribute your applications across servers (the instructions below put them
+# all on the same server, defined above as 'domain', adjust as necessary)
+role :app, domain
+role :web, domain
+role :db, domain, :primary => true
+
+# you might need to set this if you aren't seeing password prompts
+# default_run_options[:pty] = true
+
+# As Capistrano executes in a non-interactive mode and therefore doesn't cause
+# any of your shell profile scripts to be run, the following might be needed
+# if (for example) you have locally installed gems or applications.  Note:
+# this needs to contain the full values for the variables set, not simply
+# the deltas.
+# default_environment['PATH']='<your paths>:/usr/local/bin:/usr/bin:/bin'
+# default_environment['GEM_PATH']='<your paths>:/usr/lib/ruby/gems/1.8'
+
+# miscellaneous options
+set :deploy_via, :remote_cache
+set :scm, 'git'
+set :branch, 'master'
+set :scm_verbose, true
+set :use_sudo, false
+
+# task which causes Passenger to initiate a restart
+namespace :deploy do
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt" 
+  end
+end
+
+# optional task to reconfigure databases
+after "deploy:update_code", :configure_database
+desc "copy database.yml into the current release path"
+task :configure_database, :roles => :app do
+  db_config = "/home/[user]/[project]/config/database.yml"
+  run "cp #{db_config} #{release_path}/config/database.yml"
+end
+```
+
+ソースの置き場所と database.yml の用意。
+
+``` {.bash}
+# remote
+$ sudo mkdir -p /var/www/[project]
+$ sudo chown [user]:[group] /var/www/[project]
+```
+
+``` {.bash}
+# remote
+$ mkdir -p ~/[project]/config
+# database.yml を記述
+$ vi ~/[project]/config/database.yml
+```
+
+デプロイ。
+
+``` {.bash}
+# local
+# 必要なディレクトリの作成 (初回のみ)
+$ cap deploy:setup
+# 正常に動作するかチェック
+$ cap deploy:check
+# デプロイ実行
+$ cap deploy:migrations
+```
+
+Passenger の設定。
+
+``` {.bash}
+$ sudo vi /etc/httpd/conf/httpd.conf
+```
+
+    # メインで使う Ruby
+    LoadModule passenger_module /home/[user]/.rvm/gems/ree-1.8.7-2010.02/gems/passenger-3.0.0.pre4/ext/apache2/mod_passenger.so
+    PassengerRoot /home/[user]/.rvm/gems/ree-1.8.7-2010.02/gems/passenger-3.0.0.pre4
+    PassengerRuby /home/[user]/.rvm/wrappers/ree-1.8.7-2010.02/ruby
+
+    <VirtualHost *:80>
+      ServerName [project].penguinlab.jp
+      DocumentRoot /var/www/[project]/public
+    </VirtualHost>
+
+VHost で別の Ruby を使う場合
+
+``` {.bash}
+$ sudo vi /etc/httpd/conf/httpd.conf
+```
+
+    # http://blog.phusion.nl/2010/09/21/phusion-passenger-running-multiple-ruby-versions/
+    <VirtualHost *:80>
+      ServerName [project].penguinlab.jp
+      DocumentRoot /var/www/[project]/current/public
+      PassengerEnabled off
+      ProxyPass / http://127.0.0.1:3000/
+      ProxyPassReverse / http://127.0.0.1:3000/
+    </VirtualHost>
+
+``` {.bash}
+$ cd /var/www/[project]/current
+$ passenger start -p 3000 -d -e production
+```
+
 本
 ==
 
