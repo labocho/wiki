@@ -485,8 +485,10 @@ $ sudo vi /etc/httpd/conf/httpd.conf
     </VirtualHost>
 
 ``` {.bash}
-$ cd /var/www/[project]/current
-$ passenger start -p 3000 -d -e production
+# cd /var/www/[project]/current
+# passenger start
+# だと、バージョンが上がっても再起動できないのでパスを指定
+$ passenger start /var/www/[project]/current -p 3000 -d -e production
 ```
 
 本
