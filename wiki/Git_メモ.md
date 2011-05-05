@@ -16,6 +16,6 @@ $ git --bare init
 このリポジトリを追加して push する
 
 ``` {.bash}
-$ git remote add origin ssh://[user]@[host]/~/git/[project].git
-$ git push origin master
+$ git remote add [name] ssh://[user]@[host]/~/git/[project].git
+$ git push [name] master
 ```
