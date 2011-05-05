@@ -1,0 +1,14 @@
+= リモートサーバにリポジトリをつくる =
+
+<source lang="bash">
+$ mkdir -p ~/git/[project].git
+$ cd -p ~/git/[project].git
+$ git --bare init
+</source>
+
+このリポジトリを追加して push する
+
+<source lang="bash">
+$ git remote add origin ssh://[user]@[host]/~/git/[project].git
+$ git push origin master
+</source>
