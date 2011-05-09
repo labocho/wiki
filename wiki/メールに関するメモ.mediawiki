@@ -1,0 +1,8 @@
+= 署名 =
+[http://www.ietf.org/rfc/rfc3676.txt RFC3676] 4.3 Usenet Signature Convention
+
+= 返信時の件名 =
+[http://www.ietf.org/rfc/rfc2822.txt RFC2822] 3.6.5 Informational fields
+
+= 返信時の引用符 =
+[http://www.ietf.org/rfc/rfc3676.txt rfc3676] 4.5 Quoting
