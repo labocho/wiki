@@ -422,8 +422,8 @@ $ sudo vi /etc/httpd/conf/httpd.conf
 <source lang="bash">
 # cd /var/www/[project]/current
 # passenger start
-# だと、バージョンが上がっても再起動できないのでパスを指定
-$ passenger start /var/www/[project]/current -p 3000 -d -e production
+# だと、Capistrano のバージョン管理に対応せず、restart.txt による再起動もできないので、下記のようにパスを指定する
+$ passenger start /var/www/[project]/current -p 3000 -d -e production --pid-file /var/www/[project]/shared/pids/passenger.3000.pid --log-file /var/www/[project]/shared/log/passenger.3000.log
 </source>
 
 = 本 =
