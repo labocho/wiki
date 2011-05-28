@@ -1,7 +1,7 @@
 = 動作と用語 =
 見出しは原則、仏語 / 英語。仏語まったくわからないので、活用とかおかしいかも。
 
-== En garde (アンガルド) / On guard ==
+== En garde (オンガルド) / On guard ==
 「構え」。基本の構え。
 
 * 肩幅に足を開き、利き足の向きを外側に90度変える
@@ -68,6 +68,10 @@
 == Balestra (バレストラ) ==
 Bond avant から突きにつなげる。
 
+== Appel (アペール) ==
+Bond avant -> Marche
+[http://fr.wikipedia.org/wiki/Glossaire_de_l%27escrime Glossaire de l'escrime - Wikipédia] によれば、床を踏みならす動作を指す?
+
 == Marche, Coup droit (マルシェ、クードラ) ==
 Marchez から突きにつなげる。
 
@@ -92,6 +96,17 @@ Dégagé を二度行って、元の位置に戻す。相手が Dégagé に対�
 * 押さえ込まない
 * Riposte → Dégagé とつなげたり
 
+== Sixte (シクスト) ==
+右利きの場合、剣の右(上)側。
+
+== Quarte (カルト) ==
+右利きの場合、剣の左(上)側。
+
+== Octave (オクタヴ) ==
+右利きの場合、剣の右下側。
+
+== Septime (セプティム) ==
+右利きの場合、剣の左下側。
 
 = 審判の使う用語 =
 == Rassemblez! Saluez! (ラッサンブレ、サリュ) ==
