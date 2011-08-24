@@ -113,3 +113,11 @@ array = [{
 
 インデントレベルを上げる閉じ括弧類のパターンが、単独の } か ]
 だけだったのを、}], のいづれかの 1 つ以上の連続に変更。
+
+Git のエディタにする
+====================
+
+``` {.bash}
+$ git config --global --unset-all core.editor
+$ git config --global core.editor "mate -wl1"
+```
