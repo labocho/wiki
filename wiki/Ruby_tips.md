@@ -99,6 +99,68 @@ Ruby
 class 文でネストしていれば、の意味。定数の定義時は module / class
 文でネストしていようが、:: を使っていようが関係ない。
 
+false をとりうる変数と nil ゲートに関する注意
+=============================================
+
+a ||= b や a = b if b のような、nil
+ゲートはよく使うイディオムだが、false
+をとりうる変数について使用する際には注意が必要。
+
+``` {.ruby}
+class Unexpected1
+  attr_writer :flag
+
+  def flag
+    return @flag ||= true
+  end
+end
+
+u = Unexpected1.new
+u.flag # => true
+u.flag = false
+u.flag # => true
+```
+
+ここでは @flag が設定されていなければ (nil なら) true
+をセットして返すことを想定しているが、flag= で false を代入しても、@flag
+は falsy であるため、再度 true をセットして返してしまう。
+
+``` {.ruby}
+return @flag.nil? ? (@flag = true) : @flag
+```
+
+のように明確に nil かどうかをみる必要がある。
+
+``` {.ruby}
+class Unexpected2
+  attr_accessor :flag
+    
+  def initialize
+    @flag = true
+  end
+
+  def set(hash)
+    @flag = hash[:flag] if hash[:flag]
+  end
+end
+
+u = Unexpected2.new
+u.flag # => true
+u.set(:flag => false)
+u.flag # => true
+```
+
+ここでは、hash[:flag] があれば (nil でなければ) @flag
+にセットしているが、hash[:flag] が false なら if
+節は成立しないため、@flag に false がセットされることはない。
+
+``` {.ruby}
+@flag = hash[:flag] if hash.has_key?(:flag)
+```
+
+のように、明確にそのキーの値があるかを調べた方がよい (この方法なら nil
+が指定されていても調べられる)。
+
 本
 ==
 

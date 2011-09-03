@@ -73,6 +73,59 @@ Ruby リファレンスマニュアルの記述を参照すると、定数の探
 トップレベルで定義した定数は Object クラスに属するので、3 の最後に探索される。
 2 の「ネストしていれば」は、定数を参照するときのコンテキストが module / class 文でネストしていれば、の意味。定数の定義時は module / class 文でネストしていようが、:: を使っていようが関係ない。
 
+= false をとりうる変数と nil ゲートに関する注意 =
+a ||= b や a = b if b のような、nil ゲートはよく使うイディオムだが、false をとりうる変数について使用する際には注意が必要。
+
+<source lang="ruby">
+class Unexpected1
+  attr_writer :flag
+
+  def flag
+    return @flag ||= true
+  end
+end
+
+u = Unexpected1.new
+u.flag # => true
+u.flag = false
+u.flag # => true
+</source>
+
+ここでは @flag が設定されていなければ (nil なら) true をセットして返すことを想定しているが、flag= で false を代入しても、@flag は falsy であるため、再度 true をセットして返してしまう。
+
+<source lang="ruby">
+return @flag.nil? ? (@flag = true) : @flag
+</source>
+
+のように明確に nil かどうかをみる必要がある。
+
+<source lang="ruby">
+class Unexpected2
+  attr_accessor :flag
+	
+  def initialize
+    @flag = true
+  end
+
+  def set(hash)
+    @flag = hash[:flag] if hash[:flag]
+  end
+end
+
+u = Unexpected2.new
+u.flag # => true
+u.set(:flag => false)
+u.flag # => true
+</source>
+
+ここでは、hash[:flag] があれば (nil でなければ) @flag にセットしているが、hash[:flag] が false なら if 節は成立しないため、@flag に false がセットされることはない。
+
+<source lang="ruby">
+@flag = hash[:flag] if hash.has_key?(:flag)
+</source>
+
+のように、明確にそのキーの値があるかを調べた方がよい (この方法なら nil が指定されていても調べられる)。
+
 = 本 =
 <amazon locale="jp" id="4873113679">
 == %title% ==
