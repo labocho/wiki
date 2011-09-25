@@ -161,6 +161,19 @@ u.flag # => true
 のように、明確にそのキーの値があるかを調べた方がよい (この方法なら nil
 が指定されていても調べられる)。
 
+YAML から XML への変換
+======================
+
+active\_support/core\_ext で Hash\#to\_xml
+が追加されるので、それを使う。
+
+``` {.ruby}
+require "active_support/core_ext"
+require "yaml"
+
+puts YAML.load(File.read(ARGV.shift)).to_xml
+```
+
 本
 ==
 
