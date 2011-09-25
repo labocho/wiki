@@ -171,7 +171,7 @@ active\_support/core\_ext で Hash\#to\_xml
 require "active_support/core_ext"
 require "yaml"
 
-puts YAML.load(File.read(ARGV.shift)).to_xml
+puts YAML.load_file(ARGV.shift).to_xml
 ```
 
 本

@@ -133,7 +133,7 @@ active_support/core_ext で Hash#to_xml が追加されるので、それを使�
 require "active_support/core_ext"
 require "yaml"
 
-puts YAML.load(File.read(ARGV.shift)).to_xml
+puts YAML.load_file(ARGV.shift).to_xml
 </source>
 
 = 本 =
