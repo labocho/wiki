@@ -9,7 +9,7 @@ layout: wiki
 
 ``` {.bash}
 $ mkdir -p ~/git/[project].git
-$ cd -p ~/git/[project].git
+$ cd ~/git/[project].git
 $ git --bare init
 ```
 
