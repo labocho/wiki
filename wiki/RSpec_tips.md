@@ -151,3 +151,106 @@ describe Hash do
   it_behaves_like "collection"
 end
 ```
+
+Matcher
+=======
+
+Matcher の仕組みと作り方
+------------------------
+
+`should`、`should_not` のあとに続く (文法的には引数になる) 部分を
+`matcher` と呼ぶ。`matcher` は下記のメソッドに応答するオブジェクト。
+
+-   matches(actual) - should / should\_not
+    のレシーバを引数にして呼ばれ、期待したものなら true / 異なれば false
+    を返す。
+-   failure\_message - should
+    が失敗したときに呼ばれるメソッド。表示するメッセージを文字列で返す。
+-   negative\_failure\_message - should\_not
+    が失敗したときに呼ばれるメソッド。表示するメッセージを文字列で返す。
+
+たとえば、ある数と一致することを期待する matcher は以下のようになる
+
+``` {.ruby}
+class IntegerMatcher
+  def initialize(number)
+    @expect = number.to_i
+  end
+  def matches?(actual)
+    @actual = actual.to_i # メッセージで使うため、インスタンス変数に保存しておく
+    @actual == @expect
+  end
+  def failure_message
+    "#{@expect} expected, but was #{@actual}"
+  end
+  def negative_failure_message
+    "Except #{@expect} expected, but was #{@actual}"
+  end
+end
+```
+
+使い方は下記の通り。
+
+``` {.ruby}
+describe "number" do
+  it "1 equals 1" do
+    1.should IntegerMatcher.new(1)
+  end
+  it "1 does not equal 2" do
+    1.should_not IntegerMatcher.new(2)
+  end
+  it "1 equals 2" do
+    1.should IntegerMatcher.new(2) # 2 expected, but was 1
+  end
+  it "1 does not equals 1" do
+    1.should_not IntegerMatcher.new(1) # Except 1 expected, but was 1
+  end
+end
+```
+
+これをより DSL 的にする。
+
+``` {.ruby}
+describe "number" do
+  def equal_integer(expected)
+    IntegerMatcher.new(expected)
+  end
+  
+  it "1 equals 1" do
+    1.should equal_integer(1)
+  end
+  it "1 does not equal 2" do
+    1.should_not equal_integer(2)
+  end
+  it "1 equals 2" do
+    1.should equal_integer(2)
+  end
+  it "1 does not equals 1" do
+    1.should_not equal_integer(1)
+  end
+end
+```
+
+この、クラスの定義とオブジェクト生成メソッドの定義を簡単に行うための仕組みがある。
+
+``` {.ruby}
+RSpec::Matchers.define :equal_integer do |expected|
+  @expected = expected.to_i
+
+  match do |actual|
+    @actual = actual.to_i
+    actual == expected
+  end
+  failure_message_for_should do |actual|
+    "#{@expected} expected, but was #{@actual}"
+  end
+  failure_message_for_should_not do |actual|
+    "Except #{@expected} expected, but was #{@actual}"
+  end
+  description do
+    # Some description for this matcher
+  end
+end
+```
+
+これですべての Example Group で使えるので、通常はこの方法で定義する。
