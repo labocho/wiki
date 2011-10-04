@@ -8,6 +8,17 @@ layout: wiki
 
 Ruby については [Ruby tips](/wiki/Ruby tips "wikilink") 参照。
 
+コントローラでリクエストメソッドを処理する場合
+==============================================
+
+`request.method` か `request.request_method` を使う。
+
+-   `request.method`
+    はクライアントから送られてきたリクエストメソッドそのもの。
+-   `request.request_method` は `_method` パラメータを考慮したもの。
+
+通常は `request.request_method` を使う。
+
 コントローラからファイルを返す
 ==============================
 

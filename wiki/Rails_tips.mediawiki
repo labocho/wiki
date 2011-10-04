@@ -2,6 +2,14 @@
 
 Ruby については [[Ruby tips]] 参照。
 
+= コントローラでリクエストメソッドを処理する場合 =
+<tt>request.method</tt> か <tt>request.request_method</tt> を使う。
+
+* <tt>request.method</tt> はクライアントから送られてきたリクエストメソッドそのもの。
+* <tt>request.request_method</tt> は <tt>_method</tt> パラメータを考慮したもの。
+
+通常は <tt>request.request_method</tt> を使う。
+
 = コントローラからファイルを返す =
 render のかわりに send_file / send_data を使う。
 
