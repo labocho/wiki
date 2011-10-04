@@ -180,10 +180,10 @@ class IntegerMatcher
     @actual = actual.to_i # メッセージで使うため、インスタンス変数に保存しておく
     @actual == @expect
   end
-  def failure_message
+  def failure_message_for_should
     "#{@expect} expected, but was #{@actual}"
   end
-  def negative_failure_message
+  def failure_message_for_should_not
     "Except #{@expect} expected, but was #{@actual}"
   end
 end
@@ -254,3 +254,97 @@ end
 ```
 
 これですべての Example Group で使えるので、通常はこの方法で定義する。
+
+組み込み Matcher
+----------------
+
+組み込みの Matcher は rspec-expectations gem の lib/rspec/matchers
+下に定義されている。
+
+-   be.rb
+    -   be\_true
+    -   be\_false
+    -   be\_nil
+    -   be\_\* : \*? を呼び出し truthy
+        であることを期待する。be\_a\_\*、be\_an\_\*
+        でもよい。?メソッドの最後の s は省略可能。
+    -   be\_a : kind\_of? が true になることを期待する
+    -   be ==, be \<, be \<=, be \>=, be \>, be ===
+-   be\_close.rb
+    -   be\_close(expected, delta) : Float に使う。expected から誤差
+        delta 内に収まる。
+-   be\_instance\_of.rb
+    -   be\_instance\_of(klass) : (be\_\* で実現可能では?)
+-   be\_kind\_of.rb
+    -   be\_kind\_of(klass) : (be\_\* で実現可能では?)
+-   be\_within.rb
+    -   be\_within(delta).of(expected) : be\_close と同様
+-   block\_aliases
+    -   expect{}.to, expect{}.to\_not, expect{}.not\_to :
+        expect{}.should / expect{}.should\_not のエイリアス
+-   change.rb
+    -   change{}, change{}.by(delta), change{}.from(old).to(new) :
+        ブロックを actual.call の前後に評価して違いを期待する
+-   cover.rb
+    -   cover(values) : actual.cover?(value) が true
+        となることを期待する
+-   eq.rb
+    -   eq(value) : == と同じ
+-   eql.rb
+    -   eql(value) : eql? が true になることを期待する
+-   equal.rb
+    -   equal(value) : equal? が true になることを期待する
+-   exist.rb
+    -   exist(value) : exist? または exists? が true
+        になることを期待する。両方ある場合、両方評価され、値が異なる場合、例外が発生。
+-   has.rb
+    -   have\_\* : has\_\*? を呼び出した返値が true であることを期待する
+-   have.rb
+    -   have(n).\*, have\_at\_least(n).\*, have\_at\_most(n).\* : \*
+        の返値の size か length が n と同じ、n 以上、n
+        以下であることを期待する。actual 自体の size / length
+        を検証したい場合は \* に items / characters を使う。
+-   include.rb
+    -   include(value) : ややこしいので後述
+-   match.rb
+    -   match(pattern)
+-   match\_array.rb
+    -   =\~ : array
+        のすべての要素が同じことを期待する。要素数が異なれば失敗、順序は自由。
+-   operator\_matcher.rb
+    -   ,
+        -
+
+        =, =\~, \>, \>=, \<, \<=
+
+-   raise\_error.rb
+    -   raise\_error, raise\_error(exception\_class),
+        raise\_error(exception\_class, message\_string\_or\_regexp) :
+        actual.call により例外が発生することを期待する
+-   respond\_to.rb
+    -   respond\_to(method\_names),
+        respond\_to(method\_names).with(n).arguments : arguments は
+        省略しても argument でも可
+-   satisfy.rb
+    -   satisfy{|a| ...} : ブロックの評価値が true となることを期待する
+    -   throw\_symbol(expect) : actual.call により throw expect
+        されることを期待する
+
+### include
+
+両方 Hash なら expected のすべての key-value が actual にある
+
+` expected.all?{|k| e.all?{|k, v| actual[k] == v}}`  
+` expected.none?{|k| e.any?{|k, v| actual[k] == v}}`
+
+actual が Hash で expected が Hash でなければ、expected
+がすべて存在するキーである
+
+` expected.all?{|k| actual.has_key?(k)}`  
+` expected.none?{|k| actual.has_key?(k)}`
+
+それ以外は、expected のすべての値を actual.include? に渡して true
+であることを期待する
+
+` expected.all?{|k| actual.include?(k)}`  
+` expected.none?{|k| actual.include?(k)}`
