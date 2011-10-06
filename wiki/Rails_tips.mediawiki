@@ -164,6 +164,21 @@ production:
   password: database_password
 </pre>
 
+= migration を書くときの注意点 =
+== migrate / rollback で schema の diff をチェックする ==
+migration を書いたら、migrate して db/schema.rb の diff をチェック (意図した変更が加えられているか)。
+
+rollback してもう一度チェック (diff がないか) する。
+
+== ActiveRecord クラスを使わない ==
+既存テーブルの構造を変更する際に、既存のデータを移行するケースがあるが、その際に ActiveRecord クラスを使わない。ある migration の時点で存在しないカラムについて validation などを行うと例外が発生するため。また、クラス名の変更、テーブル名の変更にも弱くなる。面倒だが、execute で生の SQL を発行するのが得策。
+
+== データの投入を行わない ==
+初期データの投入は db/seed.rb に定義し、rake db:seed で行う。これは、migration と関係なく変更可能にするため。また、seed.rb では migration とは異なり、ActiveRecord クラスを使っても問題ない。
+
+== after を使う ==
+好みだが、カラムの追加時、<tt>:after => :foo</tt> オプションで、カラムを追加する位置を指定できる。Sequel Pro などで見やすいとか、migrate -> rollback で schema.rb に diff があるのが気持ち悪いのを解消できるとか。その程度のメリットなのでどっちでもいい。
+
 = 関連と fixture =
 fixture で外部キーの _id を省略すると参照テーブルの fixture ラベルを指定できる。
 
