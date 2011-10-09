@@ -6,7 +6,7 @@ $ cd ~/git/[project].git
 $ git --bare init
 </source>
 
-このリポジトリを追加して push する
+このリポジトリを追加して push する (name は origin など)
 
 <source lang="bash">
 $ git remote add [name] ssh://[user]@[host]/~/git/[project].git
