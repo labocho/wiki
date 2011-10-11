@@ -273,3 +273,17 @@ actual が Hash で expected が Hash でなければ、expected がすべて存
 それ以外は、expected のすべての値を actual.include? に渡して true であることを期待する
   expected.all?{|k| actual.include?(k)}
   expected.none?{|k| actual.include?(k)}
+
+= Rails 関連 =
+= request.remote_addr =
+request.remote_ip を使い、リモートホストの IP アドレスによって挙動を変えている際に、controller の spec で、 <tt>request.remote_addr = "127.0.0.1"</tt> などとしてもうまくいかない。これは ActionDispatch::TestRequest#ip でキャッシュしているため。下記のパッチを spec/support/test_request.rb に置く。
+
+<source lang="ruby">
+# remote_addr= を使うため、ipをキャッシュしないようにする
+class ActionDispatch::TestRequest
+  def ip
+    # @ip ||= super
+    @ip = super
+  end
+end
+</source>
