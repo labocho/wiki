@@ -2,6 +2,32 @@
 
 Rails については [[Rails tips]] 参照。
 
+= 多重代入で一部の要素を捨てる =
+<source lang="ruby">
+# 通常の多重代入
+first, second, third = [1, 2, 3]
+
+# 先頭の要素を捨てる
+*, second, third = [1, 2, 3]
+*, third = [1, 2, 3]
+
+# 末尾の要素を捨てる
+first, second, * = [1, 2, 3]
+first, * = [1, 2, 3]
+
+# 中間の要素を捨てる
+first, *, third = [1, 2, 3]
+</source>
+
+= 正規表現でキャプチャした部分を取得する =
+$~ あるいは Regexp.last_match は、次に match を呼ぶと上書きされ、また、$1 や $~[1] は可読性も悪いので、即座に変数に移してしまったほうがよい。$~.to_a だと、最初の要素はマッチした文字列全体なので、多くの場合不要。$~.captures を使うとキャプチャした部分のみの配列が得られる。。
+
+<source lang="ruby">
+# encoding: UTF-8
+"2011年10月9日" =~ /(\d+)年(\d+)月(\d+)日/
+year, month, day = $~.captures
+</source>
+
 = String#inspect で16進数表記を返す =
 バイナリを扱うプログラムの開発時などに。16バイト毎に改行します。
 <source lang="ruby">
