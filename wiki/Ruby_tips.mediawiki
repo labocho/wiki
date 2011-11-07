@@ -165,6 +165,13 @@ puts YAML.load_file(ARGV.shift).to_xml
 = Time#strftime =
 
 {|class="wikitable"
+! 規格 || フォーマット || 例
+|-
+| ISO8601 || %Y-%m-%dT%H:%M:%S%z || 2011-11-07T14:10:02+0900
+|}
+
+
+{|class="wikitable"
 ! 分類 || 表記 || 意味
 |-
 | 世紀 || %C || 世紀 (2009年であれば 20)
@@ -251,7 +258,6 @@ puts YAML.load_file(ARGV.shift).to_xml
 |-
 | 組み合わせ || %x || 日付
 |}
-
 
 = 本 =
 <amazon locale="jp" id="4873113679">
