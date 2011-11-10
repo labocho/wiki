@@ -8,8 +8,32 @@ layout: wiki
 
 Ruby については [Ruby tips](/wiki/Ruby tips "wikilink") 参照。
 
-コントローラでリクエストメソッドを処理する場合
-==============================================
+モデル
+======
+
+file\_column 保存時に MIME タイプを取得
+---------------------------------------
+
+file\_column の仕組みについては [file\_column プラグイン内部構造 - Rails
+で行こう！](http://d.hatena.ne.jp/elm200/20070730/1185776933)
+がわかりやすい。
+
+``` {.ruby}
+# ActiveRecord::Base のサブクラス内
+file_column :file
+
+def file_with_getting_content_type=(file)
+  self.mime = file.content_type #=> 'image/png' とか
+  self.file_without_getting_content_type = file
+end
+alias_method_chain :file=, :with_getting_content_type
+```
+
+コントローラ
+============
+
+リクエストメソッドを処理する場合
+--------------------------------
 
 `request.method` か `request.request_method` を使う。
 
@@ -19,8 +43,8 @@ Ruby については [Ruby tips](/wiki/Ruby tips "wikilink") 参照。
 
 通常は `request.request_method` を使う。
 
-コントローラからファイルを返す
-==============================
+ファイルを返す
+--------------
 
 render のかわりに send\_file / send\_data を使う。
 
@@ -50,26 +74,8 @@ send_file png_image_file_path, :type => 'image/png' #=> こっちはダウンロ
     Header](http://lab.moyo.biz/translations/rfc/rfc1806-ja.xsp)
     同日本語訳
 
-file\_column 保存時に MIME タイプを取得
-=======================================
-
-file\_column の仕組みについては [file\_column プラグイン内部構造 - Rails
-で行こう！](http://d.hatena.ne.jp/elm200/20070730/1185776933)
-がわかりやすい。
-
-``` {.ruby}
-# ActiveRecord::Base のサブクラス内
-file_column :file
-
-def file_with_getting_content_type=(file)
-  self.mime = file.content_type #=> 'image/png' とか
-  self.file_without_getting_content_type = file
-end
-alias_method_chain :file=, :with_getting_content_type
-```
-
 404 とか 403 とかを render するメソッド
-=======================================
+---------------------------------------
 
 render\_error 404 などとすると、public/404.html を探してステータスコード
 404 をつけて render し、false を返す。
@@ -88,8 +94,7 @@ class ActionController::Base
 end
 ```
 
-使い方
-------
+### 使い方
 
 ``` {.ruby}
 # render_error は false を返すので
@@ -97,8 +102,11 @@ end
 render_error 404
 ```
 
+テスト
+======
+
 by メソッド
-===========
+-----------
 
 Restful Authentication や Devise を使ったアプリケーションで、functional
 test を書く際に、下記のような表記を可能にする。 どちらも認証に使う Model
@@ -123,8 +131,7 @@ get_index = lambda {
 by :fixture_user_name, get_index
 ```
 
-Restful Authentication 用
--------------------------
+### Restful Authentication 用
 
 ``` {.ruby}
 # test/test_helper.rb
@@ -148,8 +155,7 @@ class ActiveSupport::TestCase
 end
 ```
 
-Devise 用
----------
+### Devise 用
 
 ``` {.ruby}
 # test/test_helper.rb
@@ -178,83 +184,8 @@ class ActionController::TestCase
 end
 ```
 
-environment.rb
-==============
-
-gem 名とライブラリ名が異なる場合
---------------------------------
-
-gem 名とライブラリ名が異なる場合、config.gem に :lib
-オプションでライブラリ名を指定しなければならない。これをしていないとサーバ起動時に
-Missing these required gems: などと怒られる。典型的には gem
-名がハイフン入りで、ライブラリ名がスラッシュ入りになるもの。
-
-``` {.ruby}
-# config/environment.rb
-config.gem "diff-lcs", :lib => "diff/lcs"
-```
-
-Rails 3 の場合は下記の通り
-
-``` {.ruby}
-# Gemfile
-gem "diff-lcs", :require => "diff/lcs"
-```
-
-database.yml
-============
-
-Access denied for user 'root'@'localhost' (using password: YES)
----------------------------------------------------------------
-
-rake db:migrate 時などに、上記のエラーが出た場合、database.yml
-をチェック。MySQL の場合、**user** ではなく **username**
-とするのが正しいみたい。user になってると無視されて、root
-としてアクセスしようとする。
-
-    production:
-      adapter: mysql
-      database: database_name
-      username: database_user
-      password: database_password
-
-migration を書くときの注意点
-============================
-
-migrate / rollback で schema の diff をチェックする
----------------------------------------------------
-
-migration を書いたら、migrate して db/schema.rb の diff をチェック
-(意図した変更が加えられているか)。
-
-rollback してもう一度チェック (diff がないか) する。
-
-ActiveRecord クラスを使わない
------------------------------
-
-既存テーブルの構造を変更する際に、既存のデータを移行するケースがあるが、その際に
-ActiveRecord クラスを使わない。ある migration
-の時点で存在しないカラムについて validation
-などを行うと例外が発生するため。また、クラス名の変更、テーブル名の変更にも弱くなる。面倒だが、execute
-で生の SQL を発行するのが得策。
-
-データの投入を行わない
-----------------------
-
-初期データの投入は db/seed.rb に定義し、rake db:seed
-で行う。これは、migration と関係なく変更可能にするため。また、seed.rb
-では migration とは異なり、ActiveRecord クラスを使っても問題ない。
-
-after を使う
-------------
-
-好みだが、カラムの追加時、`:after => :foo`
-オプションで、カラムを追加する位置を指定できる。Sequel Pro
-などで見やすいとか、migrate -\> rollback で schema.rb に diff
-があるのが気持ち悪いのを解消できるとか。その程度のメリットなのでどっちでもいい。
-
 関連と fixture
-==============
+--------------
 
 fixture で外部キーの \_id を省略すると参照テーブルの fixture
 ラベルを指定できる。
@@ -302,8 +233,7 @@ end
 
 と書ける。
 
-fixture で id を記述しなかった場合の id
----------------------------------------
+### fixture で id を記述しなかった場合の id
 
 fixture で id を記述しなかった場合、自動で id が割り振られるが、この id
 は下記のコードで生成されている。
@@ -336,8 +266,98 @@ file\_column のテスト時にはレコードの id
 をディレクトリ名に使う必要があるが、この方法で割り振られる id
 を確認しておけば、fixture に id を記述しなくともテストできる。
 
+parallel\_tests
+---------------
+
+parallel\_tests はマルチプロセスでテストを行う
+gem。マルチコア環境では飛躍的にテストが高速化できる。
+
+-   [grosser/parallel\_tests -
+    GitHub](https://github.com/grosser/parallel_tests)
+
+導入は上記ページにある Readme.md がわかりやすいのでそれを参照。
+file\_column と組合わせる場合は、少し調整が必要。
+
+設定
+====
+
+environment.rb
+--------------
+
+### gem 名とライブラリ名が異なる場合
+
+gem 名とライブラリ名が異なる場合、config.gem に :lib
+オプションでライブラリ名を指定しなければならない。これをしていないとサーバ起動時に
+Missing these required gems: などと怒られる。典型的には gem
+名がハイフン入りで、ライブラリ名がスラッシュ入りになるもの。
+
+``` {.ruby}
+# config/environment.rb
+config.gem "diff-lcs", :lib => "diff/lcs"
+```
+
+Rails 3 の場合は下記の通り
+
+``` {.ruby}
+# Gemfile
+gem "diff-lcs", :require => "diff/lcs"
+```
+
+database.yml
+------------
+
+### Access denied for user 'root'@'localhost' (using password: YES)
+
+rake db:migrate 時などに、上記のエラーが出た場合、database.yml
+をチェック。MySQL の場合、**user** ではなく **username**
+とするのが正しいみたい。user になってると無視されて、root
+としてアクセスしようとする。
+
+    production:
+      adapter: mysql
+      database: database_name
+      username: database_user
+      password: database_password
+
+データベース
+============
+
+migration を書くときの注意点
+----------------------------
+
+### migrate / rollback で schema の diff をチェックする
+
+migration を書いたら、migrate して db/schema.rb の diff をチェック
+(意図した変更が加えられているか)。
+
+rollback してもう一度チェック (diff がないか) する。
+
+### ActiveRecord クラスを使わない
+
+既存テーブルの構造を変更する際に、既存のデータを移行するケースがあるが、その際に
+ActiveRecord クラスを使わない。ある migration
+の時点で存在しないカラムについて validation
+などを行うと例外が発生するため。また、クラス名の変更、テーブル名の変更にも弱くなる。面倒だが、execute
+で生の SQL を発行するのが得策。
+
+### データの投入を行わない
+
+初期データの投入は db/seed.rb に定義し、rake db:seed
+で行う。これは、migration と関係なく変更可能にするため。また、seed.rb
+では migration とは異なり、ActiveRecord クラスを使っても問題ない。
+
+### after を使う
+
+好みだが、カラムの追加時、`:after => :foo`
+オプションで、カラムを追加する位置を指定できる。Sequel Pro
+などで見やすいとか、migrate -\> rollback で schema.rb に diff
+があるのが気持ち悪いのを解消できるとか。その程度のメリットなのでどっちでもいい。
+
+コマンドライン
+==============
+
 Rake と script/\* での environment の指定
-=========================================
+-----------------------------------------
 
 `rake` は `RAILS_ENV=''environment''`、`script/runner` は
 `-e ''environment''`、`script/console` は `''environment''`。
@@ -351,50 +371,11 @@ Rake と script/\* での environment の指定
     # script/console
     ruby script/console production
 
-parallel\_tests
-===============
-
-parallel\_tests はマルチプロセスでテストを行う
-gem。マルチコア環境では飛躍的にテストが高速化できる。
-
--   [grosser/parallel\_tests -
-    GitHub](https://github.com/grosser/parallel_tests)
-
-導入は上記ページにある Readme.md がわかりやすいのでそれを参照。
-file\_column と組合わせる場合は、少し調整が必要。
-
-HyperEstraier でノードが追加できない
-====================================
-
-Rails とは直接関係ないけど、ほかに書くとこないのでここに。
-
-MacPorts でインストールした HyperEstraier を search\_do
-を通して使っているときに、ノードの追加ができない現象が起こった。
-
-Web インターフェイスでノードを追加しようとしても Some error occurred
-と言われ、追加できない。ログを見ると `ERROR DB-ERROR: database problem`
-というエラーが出ている。この後、ノードマスタを再起動しようとしても、最後に追加しようとしたノードを開けずに失敗する
-(\_node にあるノードのディレクトリを 10 未満にすれば再起動できる)。一方
-VM 上の CentOS では、問題なく 11 以上のノードが作成できた。
-
-原因はファイルディスクリプタの上限に引っかかっていたため。MacOS X 10.6
-では、デフォルトで上限が 256 である。
-
-``` {.bash}
-$ ulimit -n
-256
-```
-
-これを適当な大きな値に設定したら、11
-以上のノードを作成できるようになった。
-
-``` {.bash}
-$ ulimit -n 1024
-1024
-```
+デプロイ
+========
 
 デプロイまでの手順例
-====================
+--------------------
 
 rails 3.0.7 / ruby 1.9.2 on rvm / capistrano / git / passenger 使用。
 
@@ -535,6 +516,39 @@ $ sudo vi /etc/httpd/conf/httpd.conf
 # passenger start
 # だと、Capistrano のバージョン管理に対応せず、restart.txt による再起動もできないので、下記のようにパスを指定する
 $ passenger start /var/www/[project]/current -p 3000 -d -e production --pid-file /var/www/[project]/shared/pids/passenger.3000.pid --log-file /var/www/[project]/shared/log/passenger.3000.log
+```
+
+その他
+======
+
+HyperEstraier でノードが追加できない
+------------------------------------
+
+Rails とは直接関係ないけど、ほかに書くとこないのでここに。
+
+MacPorts でインストールした HyperEstraier を search\_do
+を通して使っているときに、ノードの追加ができない現象が起こった。
+
+Web インターフェイスでノードを追加しようとしても Some error occurred
+と言われ、追加できない。ログを見ると `ERROR DB-ERROR: database problem`
+というエラーが出ている。この後、ノードマスタを再起動しようとしても、最後に追加しようとしたノードを開けずに失敗する
+(\_node にあるノードのディレクトリを 10 未満にすれば再起動できる)。一方
+VM 上の CentOS では、問題なく 11 以上のノードが作成できた。
+
+原因はファイルディスクリプタの上限に引っかかっていたため。MacOS X 10.6
+では、デフォルトで上限が 256 である。
+
+``` {.bash}
+$ ulimit -n
+256
+```
+
+これを適当な大きな値に設定したら、11
+以上のノードを作成できるようになった。
+
+``` {.bash}
+$ ulimit -n 1024
+1024
 ```
 
 本
