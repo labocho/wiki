@@ -29,6 +29,39 @@ end
 alias_method_chain :file=, :with_getting_content_type
 ```
 
+default\_scope は危険
+---------------------
+
+Rails 3 から使える default\_scope は一見便利だが、注意が必要。
+
+`class Entry < ActiveRecord::Base`  
+`  default_scope order("created_at DESC")`  
+`end`
+
+などとしていると、
+
+` Entry.order("created_at ASC").all`
+
+としても、発行される SQL は
+
+` SELECT * FROM entries ORDER BY created DESC, created ASC`
+
+となり、期待したようにはならない。 もちろん unscoped で default\_scope
+を解除することもできる。
+
+` Entry.unscoped.order("created_at ASC").all`
+
+が、unscoped はそれまでの scope をすべて解除してしまうので、
+
+` class Blog < ActiveRecord::Base`  
+`   has_many :entries`  
+` end`  
+` `  
+` blog = Blog.first`  
+` blog.entries.unscoped.order("created_at ASC").all`
+
+などとすると、blog.id が一致しない Entry まで引っ張ってきてしまう。
+
 コントローラ
 ============
 
