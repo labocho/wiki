@@ -195,6 +195,27 @@ u.flag # => true
 のように、明確にそのキーの値があるかを調べた方がよい (この方法なら nil
 が指定されていても調べられる)。
 
+YAML や JSON のような構造のオブジェクトに対して再帰的に処理を加えるイディオム
+=============================================================================
+
+``` {.ruby}
+def foo(obj)
+  case obj
+  when Array
+    obj.map{|e| foo(e)}
+  when Hash
+    hash = {}
+    obj.each do |k, v|
+      hash[k] = foo(v)
+    end
+    hash
+  else
+    # なんらかの処理
+    obj
+  end
+end
+```
+
 YAML から XML への変換
 ======================
 
