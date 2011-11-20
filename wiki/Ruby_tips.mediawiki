@@ -99,6 +99,66 @@ Ruby リファレンスマニュアルの記述を参照すると、定数の探
 トップレベルで定義した定数は Object クラスに属するので、3 の最後に探索される。
 2 の「ネストしていれば」は、定数を参照するときのコンテキストが module / class 文でネストしていれば、の意味。定数の定義時は module / class 文でネストしていようが、:: を使っていようが関係ない。
 
+= instance_eval と class_eval (module_eval) =
+<tt>Object#instance_eval</tt> とは別に <tt>Module#class_eval</tt> が定義されている。クラス / モジュールをレシーバとする場合の挙動の違いをみる。
+
+なお、<tt>Module#class_eval</tt> は <tt>Module#module_eval</tt> のエイリアスだが、ここでは個人的な好みで <tt>class_eval</tt> で統一する。
+
+まず <tt>instance_eval</tt>、<tt>class_eval</tt> ともに <tt>self</tt> はクラス自身を指す。
+
+<source lang="ruby">
+String.instance_eval do
+  p self # => String
+end
+
+String.class_eval do
+  p self # => String
+end
+</source>
+
+違いは <tt>def</tt> でメソッドを定義したときの挙動。
+
+<source lang="ruby">
+# instance_eval ではクラスの特異メソッドが定義される
+# (class << String ... end と同様)
+String.instance_eval do
+  def foo
+    puts "foo"
+  end
+end
+String.foo # => foo
+
+# class_eval ではインスタンスメソッドが定義される
+# (class String ... end と同様)
+String.class_eval do
+  def bar
+    puts "bar"
+  end
+end
+String.new.bar # => bar
+</source>
+
+なお、<tt>define_method</tt> は <tt>Class</tt> のインスタンスメソッドなので <tt>self</tt> に依存する。
+<tt>self</tt> は同じなので、どちらもインスタンスメソッドが定義される
+
+<source lang="ruby">
+String.instance_eval do
+  define_method :baz do
+    puts "baz"
+  end
+end
+String.new.baz # => baz
+
+String.class_eval do
+  def foobar
+    puts "foobar"
+  end
+end
+String.new.foobar # => foobar
+</source>
+
+<tt>class ... end</tt> 文と同じように扱えるので、普通は <tt>class_eval</tt> を使った方がわかりやすい。
+
 = false をとりうる変数と nil ゲートに関する注意 =
 a ||= b や a = b if b のような、nil ゲートはよく使うイディオムだが、false をとりうる変数について使用する際には注意が必要。
 
@@ -182,6 +242,7 @@ puts YAML.load_file(ARGV.shift).to_xml
 </source>
 
 = Time#strftime =
+よく使う例
 
 {|class="wikitable"
 ! 規格 || フォーマット || 例
@@ -189,6 +250,7 @@ puts YAML.load_file(ARGV.shift).to_xml
 | ISO8601 || %Y-%m-%dT%H:%M:%S%z || 2011-11-07T14:10:02+0900
 |}
 
+一覧 (分類別にソート)
 
 {|class="wikitable"
 ! 分類 || 表記 || 意味

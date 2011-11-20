@@ -133,6 +133,73 @@ Ruby
 class 文でネストしていれば、の意味。定数の定義時は module / class
 文でネストしていようが、:: を使っていようが関係ない。
 
+instance\_eval と class\_eval (module\_eval)
+============================================
+
+`Object#instance_eval` とは別に `Module#class_eval`
+が定義されている。クラス /
+モジュールをレシーバとする場合の挙動の違いをみる。
+
+なお、`Module#class_eval` は `Module#module_eval`
+のエイリアスだが、ここでは個人的な好みで `class_eval` で統一する。
+
+まず `instance_eval`、`class_eval` ともに `self` はクラス自身を指す。
+
+``` {.ruby}
+String.instance_eval do
+  p self # => String
+end
+
+String.class_eval do
+  p self # => String
+end
+```
+
+違いは `def` でメソッドを定義したときの挙動。
+
+``` {.ruby}
+# instance_eval ではクラスの特異メソッドが定義される
+# (class << String ... end と同様)
+String.instance_eval do
+  def foo
+    puts "foo"
+  end
+end
+String.foo # => foo
+
+# class_eval ではインスタンスメソッドが定義される
+# (class String ... end と同様)
+String.class_eval do
+  def bar
+    puts "bar"
+  end
+end
+String.new.bar # => bar
+```
+
+なお、`define_method` は `Class` のインスタンスメソッドなので `self`
+に依存する。 `self`
+は同じなので、どちらもインスタンスメソッドが定義される
+
+``` {.ruby}
+String.instance_eval do
+  define_method :baz do
+    puts "baz"
+  end
+end
+String.new.baz # => baz
+
+String.class_eval do
+  def foobar
+    puts "foobar"
+  end
+end
+String.new.foobar # => foobar
+```
+
+`class ... end` 文と同じように扱えるので、普通は `class_eval`
+を使った方がわかりやすい。
+
 false をとりうる変数と nil ゲートに関する注意
 =============================================
 
@@ -232,9 +299,13 @@ puts YAML.load_file(ARGV.shift).to_xml
 Time\#strftime
 ==============
 
+よく使う例
+
 |規格|フォーマット|例|
 |----|------------|---|
 |ISO8601|%Y-%m-%dT%H:%M:%S%z|2011-11-07T14:10:02+0900|
+
+一覧 (分類別にソート)
 
 |分類|表記|意味|
 |----|----|----|
