@@ -200,6 +200,48 @@ String.new.foobar # => foobar
 `class ... end` 文と同じように扱えるので、普通は `class_eval`
 を使った方がわかりやすい。
 
+instance\_exec と class\_exec (module\_exec)
+============================================
+
+`Object#instance_exec` と `Module#class_exec` はそれぞれ
+`instance_eval`、`class_eval`
+と同じように動作するが、引数をとり、実行するブロックに渡すことができる。
+
+クラスの利用者からブロック / `Proc`
+を受け取って、しかるべき時にインスタンス /
+クラスのコンテキストで評価する、というようなケースで引数を渡せるので便利。
+
+なお、例によって `Module#class_exec` は `Module#module_exec`
+のエイリアス。
+
+``` {.ruby}
+class Person
+  attr_accessor :name
+  
+  def self.register_greeting_proc(&block)
+    @block = block
+  end
+  
+  def self.block
+    @block
+  end
+  
+  def greeting(message)
+    instance_exec(message, &self.class.block)
+  end
+end
+
+Person.register_greeting_proc do |message|
+  # instance_exec により self が Person のインスタンスになるので name を呼べる
+  # また instance_exec の引数を仮引数 message で受け取れる
+  puts "#{message}, my name is #{name}"
+end
+
+john = Person.new
+john.name = "John"
+john.greeting "Hello" # => Hello, my name is John
+```
+
 false をとりうる変数と nil ゲートに関する注意
 =============================================
 

@@ -159,6 +159,42 @@ String.new.foobar # => foobar
 
 <tt>class ... end</tt> 文と同じように扱えるので、普通は <tt>class_eval</tt> を使った方がわかりやすい。
 
+= instance_exec と class_exec (module_exec) =
+
+<tt>Object#instance_exec</tt> と <tt>Module#class_exec</tt> はそれぞれ <tt>instance_eval</tt>、<tt>class_eval</tt> と同じように動作するが、引数をとり、実行するブロックに渡すことができる。
+
+クラスの利用者からブロック / <tt>Proc</tt> を受け取って、しかるべき時にインスタンス / クラスのコンテキストで評価する、というようなケースで引数を渡せるので便利。 
+
+なお、例によって <tt>Module#class_exec</tt> は <tt>Module#module_exec</tt> のエイリアス。
+
+<source lang="ruby">
+class Person
+  attr_accessor :name
+  
+  def self.register_greeting_proc(&block)
+    @block = block
+  end
+  
+  def self.block
+    @block
+  end
+  
+  def greeting(message)
+    instance_exec(message, &self.class.block)
+  end
+end
+
+Person.register_greeting_proc do |message|
+  # instance_exec により self が Person のインスタンスになるので name を呼べる
+  # また instance_exec の引数を仮引数 message で受け取れる
+  puts "#{message}, my name is #{name}"
+end
+
+john = Person.new
+john.name = "John"
+john.greeting "Hello" # => Hello, my name is John
+</source>
+
 = false をとりうる変数と nil ゲートに関する注意 =
 a ||= b や a = b if b のような、nil ゲートはよく使うイディオムだが、false をとりうる変数について使用する際には注意が必要。
 
