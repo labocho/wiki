@@ -90,6 +90,15 @@ STDOUT.binmode.print ARGF.binmode.read.unpack("m")[0]
 
 IO\#binmode は Windows 環境で必要 (別の環境では無視される)。
 
+相対パスで require するイディオム
+=================================
+
+``` {.ruby}
+# 同じディレクトリの foo.rb を require
+# __FILE__ はソースのパスなので #{__FILE__}/../ でソースがあるディレクトリを示す相対パスになる
+require File.expand_path "../foo", __FILE__
+```
+
 定数の探索
 ==========
 

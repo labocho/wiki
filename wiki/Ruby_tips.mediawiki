@@ -66,6 +66,14 @@ STDOUT.binmode.print ARGF.binmode.read.unpack("m")[0]
 </source>
 IO#binmode は Windows 環境で必要 (別の環境では無視される)。
 
+= 相対パスで require するイディオム =
+
+<source lang="ruby">
+# 同じディレクトリの foo.rb を require
+# __FILE__ はソースのパスなので #{__FILE__}/../ でソースがあるディレクトリを示す相対パスになる
+require File.expand_path "../foo", __FILE__
+</source>
+
 = 定数の探索 =
 モジュール / クラス内の定数 (もちろんモジュール / クラスも含む) を、外側のモジュール / クラス名::定数名 で参照できる。クラスの定義 / オープン時にもこの記法は使えるが、素朴に module / class 文をネストした場合と定数の探索範囲が異なる。
 
