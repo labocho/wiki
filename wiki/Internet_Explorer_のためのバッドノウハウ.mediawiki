@@ -47,3 +47,19 @@ Web 開発者 / デザイナーなら、無視したくてもできない、世�
 デフォルトの設定では、レスポンスに含まれる Content-Type ヘッダを無視し、データの内容から形式を推測して、表示などを行う。これにより、たとえば text/plain のレスポンスが HTML と解釈され、XSS が起こる可能性がある。
 
 サーバ側ではヘッダに <tt>X-Content-Type-Options: nosniff</tt> を追加することで、Content-Type の推測を無効にできる。ただし、このヘッダに対応しているのは 8 (以降?) のみ。
+
+= display: inline-block がインライン要素にしか適用されない (7 以前) =
+7 以前では、display: inline-block がインライン要素にしか適用されない。IE では置換要素 (input など) は、display: inline; hasLayout: true; で zoom: 1; とすると hasLayout が true になるため、下記の CSS で display: inline-block; と同じような効果が得られる。
+
+<source lang="html4strict">
+<!--[if lt IE 8]>
+<style>
+.foo {
+  display: inline;
+  zoom: 1;
+}
+</style>
+<![end if]-->
+</source>
+
+[http://www.yomotsu.net/wp/?p=390 IE 6, IE 7 の inline-block 考察 | ヨモツネット]
