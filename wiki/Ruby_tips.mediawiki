@@ -158,7 +158,7 @@ end
 String.new.baz # => baz
 
 String.class_eval do
-  def foobar
+  define_method :foobar do
     puts "foobar"
   end
 end
