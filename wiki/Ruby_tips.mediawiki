@@ -72,6 +72,10 @@ IO#binmode は Windows 環境で必要 (別の環境では無視される)。
 # 同じディレクトリの foo.rb を require
 # "/../foo" としてしまうと、絶対パスになり、ルートの 1 階層上になってしまうので注意 (ルートの 1 階層上はないのでルートになる)
 require File.expand_path "../foo", __FILE__
+
+# すこし冗長だが、こっちのほうがわかりやすいかも
+require File.expand_path "foo", File.dirname(__FILE__)
+require File.expand_path File.dirname(__FILE__) + "/foo"
 </source>
 
 = 定数の探索 =
