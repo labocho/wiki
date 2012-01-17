@@ -290,13 +290,12 @@ puts YAML.load_file(ARGV.shift).to_xml
 </source>
 
 = Time#strftime =
-よく使う例
-
-{|class="wikitable"
-! 規格 || フォーマット || 例
-|-
-| ISO8601 || %Y-%m-%dT%H:%M:%S%z || 2011-11-07T14:10:02+0900
-|}
+よく使う ISO8601 や RFC2822 については、標準添付ライブラリ time を使う。
+<source lang="ruby">
+require "time"
+Time.new(2012, 1, 1).iso8601 #=> "2012-01-01T00:00:00+09:00"
+Time.new(2012, 1, 1).rfc2822 #=> "Sun, 01 Jan 2012 00:00:00 +0900"
+</source>
 
 一覧 (分類別にソート)
 
