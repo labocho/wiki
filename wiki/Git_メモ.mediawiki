@@ -6,6 +6,12 @@ $ cd ~/git/[project].git
 $ git --bare init
 </source>
 
+複数人で使用することがわかっているなら、ディレクトリの所有グループを適切なものに設定し、--shared オプションをつける。
+
+<source lang="bash">
+$ git --bare init --shared
+</source>
+
 このリポジトリを追加して push する (name は origin など)
 
 <source lang="bash">

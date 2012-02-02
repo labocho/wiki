@@ -13,6 +13,13 @@ $ cd ~/git/[project].git
 $ git --bare init
 ```
 
+複数人で使用することがわかっているなら、ディレクトリの所有グループを適切なものに設定し、--shared
+オプションをつける。
+
+``` {.bash}
+$ git --bare init --shared
+```
+
 このリポジトリを追加して push する (name は origin など)
 
 ``` {.bash}
