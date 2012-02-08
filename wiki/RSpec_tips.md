@@ -120,18 +120,18 @@ RSpec.configure do |config|
 end
 ```
 
-shared\_example\_for
-====================
+shared\_examples\_for
+=====================
 
-複数のコンテキストで同じ example group を使う場合 shared\_example\_for
+複数のコンテキストで同じ example group を使う場合 shared\_examples\_for
 でまとめ、it\_behaves\_like で使える。
 
-shared\_example\_for ブロック内では before / after なども使える。
+shared\_examples\_for ブロック内では before / after なども使える。
 
 マクロのほうが柔軟だけど、意図が明確になる。
 
 ``` {.ruby}
-shared_example_for "collection" do
+shared_examples_for "collection" do
   it "should be respond to each" do
     @collection.should be_respond_to(:each)
   end
