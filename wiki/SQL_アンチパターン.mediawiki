@@ -1,6 +1,6 @@
 [http://pragprog.com/book/bksqla/sql-antipatterns Bill Karwin "SQL Antipatterns: Avoiding the Pitfalls of Database Programming"] の読書メモ。
 
-= Jaywalking / 信号無視 =
+= Jaywalking =
 == 目的 ==
 ある属性について、複数の値を持たせる。
 
@@ -75,3 +75,198 @@ delete from contacts where product_id = 123 and account_id = 45;
 -- パフォーマンス向上
 -- index がきくので、パフォーマンスが向上する。
 </source>
+
+= Naive Trees =
+== 目的 ==
+ツリー構造の保存と取得。組織図、コメントスレッド。
+
+* ツリー構造では、それぞれの要素を node と呼び、1つの親 node と複数の子 node を持つ。
+* 最上位階層の node は親を持たず root と呼び、最下位階層の node は子を持たず leaf と呼ぶ。中間の node は nonleaf node と呼ぶ。
+
+== アンチパターン : 常に親に依存する ==
+同じテーブルの別のレコードの ID を親レコードの ID として持つ (root の場合 NULL)。この構造は adjacency list と呼ぶ。
+ここでは、あるバグについてのコメントスレッドを実現するものとする。
+
+<source lang="sql">
+create table comments (
+  comment_id serial primary key,
+  parent_id bigint unsigned,
+  bug_id bigint unsigned not null,
+  author bigint unsigned not null,
+  comment_date datetime not null,
+  comment text not null,
+  foreign key (parent_id) references comments(comment_id),
+  foreign key (bug_id) references bugs(bug_id),
+  foreign key (author) references accounts(account_id)  
+)
+</source>
+
+* 直接の子、親を得るのは簡単
+* あるバグについてのすべてのコメントを得ることは可能だが、数が多すぎる場合がある
+* 特定のレコードの子孫すべて (subtree)、先祖すべてを得るのが難しい (1 階層ごとに JOIN が必要)
+* subtree の集合演算が難しい
+* leaf の追加、subtree の移動は簡単
+* nonleaf node の削除は難しい。素朴な方法では末端から順に削除していかなければならない (ON DELETE CASCADE で自動化はできる)。
+* nonleaf node の削除時、子 node を移動する場合、複数の文が必要
+
+== アンチパターンが有効な場合 ==
+
+* 直接の子、親を得られる、追加が簡単、という要件だけでよれけば問題ない
+* SQL99 では WITH キーワードでこの構造をサポートし (psql >= 8.4 など)、完全な子孫ノード・先祖ノードの取得ができる
+
+== 解決策 1 : パス列挙 (Path enumeration) ==
+
+先祖ノードと自身の ID をファイルシステムのパスのように区切り文字で区切って保持する。
+
+<source lang="sql">
+create table comments (
+  comment_id serial primary key,
+  path varchar(1000),
+  bug_id bigint unsigned not null,
+  author bigint unsigned not null,
+  comment_date datetime not null,
+  comment text not null,
+  foreign key (bug_id) references bugs(bug_id),
+  foreign key (author) references accounts(account_id)  
+);
+insert into comments (path, ...) values ('1/4/6/7/');
+</source>
+
+先祖ノード、子孫ノードは、path の前方・後方一致で得られる
+
+<source lang="sql">
+-- id = 7 のノードの先祖ノードを取得 (パスが 1/4/6/7/ に含まれるノード)
+-- path が 1/, 1/4/, 1/4/6/, 1/4/6/7/ のレコードがヒット
+select * from comments where '1/4/6/7/' like path || '%';
+-- id = 4 のノードの子孫ノードを取得 (1/4/ がパスに含まれるノード)
+-- path が 1/4/, 1/4/6/, 1/4/6/7/ ... のレコードがヒット
+select * from comments where path like '1/4/' || '%';
+-- subtree が完全なかたちで得られるので集合演算も可能
+</source>
+
+* node の追加は leaf か non leaf かに関わらず、親の path に自身の id を加えるだけでよい
+* ただし ID が自動生成の場合、INSERT 後に UPDATE する必要がある
+* 前項の Jaywalking と同じデメリットを持つ
+
+== 解決策 2 : 入れ子のセット (Nested set) ==
+個々のノードが「左側の座標」「右側の座標」を持ち、親ノードはすべての子ノードを包含する座標を持つ。
+
+<pre>
+1---------------(1)---------------14
+ 2--(2)--5 6--------(5)---------13  
+  3-(3)-4   7-(4)-8 9---(6)---12
+                     10-(7)-11 
+</pre>
+
+<source lang="sql">
+create table comments (
+  comment_id serial primary key,
+  nsleft integer not null,
+  nsright integer not null,
+  bug_id bigint unsigned not null,
+  author bigint unsigned not null,
+  comment_date datetime not null,
+  comment text not null,
+  foreign key (bug_id) references bugs(bug_id),
+  foreign key (author) references accounts(account_id)  
+);
+insert into comments (nsleft, nsright, ...) values (2, 7, ...);
+</source>
+
+<source lang="sql">
+-- comment_id = 4 と子孫ノードを取得 (左座標が comment_id = 4 の範囲に含まれるノード)
+select c2.* from comments as c1
+  join comments as c2 on c2.nsleft between c1.nsleft and c1.nsright
+  where c1.comment_id = 4;
+
+-- comment_id = 6 と先祖ノードを取得 (comment_id = 6 の左座標を範囲に含むノード)
+select c2.* from comments as c1
+  join comments as c2 on c1.nsleft between c2.nsleft and c2.nsright
+  where c1.comment_id = 6;
+</source>
+
+* nonleaf node を削除すると、それだけで子ノードは新たな親ノードに所属する
+* 親ノード、子ノードだけを得るのは難しい
+* 追加、移動はかなり面倒、座標の割り当てがまずいと、大量のノードを更新する必要がある
+
+subtree を得るのが速く、簡単、path enumeration と比べ、数の制限がなく、型の制約は行える。ただし、更新が大変。
+
+== 解決策 3 : Closure Table ==
+
+ノード自身を含む、すべてのノードの関係を別のテーブルに保持する。
+
+<source lang="sql">
+create table comments (
+  comment_id serial primary key,
+  bug_id bigint unsigned not null,
+  author bigint unsigned not null,
+  comment_date datetime not null,
+  comment text not null,
+  foreign key (bug_id) references bugs(bug_id),
+  foreign key (author) references accounts(account_id)  
+);
+
+create table tree_paths (
+  ancestor bigint unsigned not null,
+  descendant bigint unsigned not null,
+  primary key (ancestor, descendant),
+  foreign key (ancestor) references comments(commment_id),
+  foreign key (descendant) references comments(commment_id),   
+);
+</source>
+
+<pre>
+  1
+ / \
+2   4
+|  / \
+3 5   6
+      |
+      7
+</pre>
+
+<source lang="sql">
+insert into tree_paths (ancestor, descendant) values
+  (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
+  (2, 2), (2, 3),
+  (3, 3),
+  (4, 4), (4, 5), (4, 6), (4, 7),
+  (5, 5),
+  (6, 6), (6, 7),
+  (7, 7);
+</source>
+
+<source lang="sql">
+-- comment_id = 4 の子孫ノードを取得
+-- ancestor が 4 の tree_paths.descendant
+select c.* from comments join tree_paths as t
+  on c.comment_id = t.descendant
+  where t.ancestor = 4;
+
+-- comment_id = 6 の先祖ノードを取得
+-- descendant が 6 の tree_paths.ancestor
+select c.* from comments join tree_paths as t
+  on c.comment_id = t.ancestor
+  where t.descendant = 6;
+
+-- ノードを追加する場合は、自身を ancestor, descendant 両方にもつ tree_paths レコードを追加し
+-- 親レコードを descendant にもつレコードをすべてコピーし descendant を自身の id にする
+-- 下記は comment_id = 5 の子として comment_id = 8 のノードを追加した場合
+insert into tree_paths (ancestor, descendant)
+  select 8, 8
+  union
+  select t.ancestor, 8 from tree_paths as t where t.descendant = 5;
+
+-- leaf node である comment_id = 7 のパスの削除
+delete from tree_paths where descendant = 7;
+
+-- comment_id = 4 の子孫ノードのパス削除
+-- ancestor が 4 である descendant を descendant に持つパスを削除
+delete from tree_paths where descendant in (select descendant from tree_paths where ancestor = 4);
+</source>
+
+* パスを削除してもノード自体は削除されない。個々のノードが独立しており、関係だけを別のテーブルで管理していると考えられる。
+* 外部キー制約があるので、参照整合性も担保できる。
+* 単純なツリーだけでなく、複数の root に属することもできる (逆に言えば単純なツリーに限定できず、複雑なネットワークになってしまう可能性がある)。
+* 個々のノードの距離を示す (自己参照は 0、親子は 1 ...) tree_paths.path_length を追加すれば、親や子、任意の深さの subtree を得ることもできる。
+* 極端にレコードが増える可能性がある。
