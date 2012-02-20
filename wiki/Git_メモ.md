@@ -26,3 +26,10 @@ $ git --bare init --shared
 $ git remote add [name] ssh://[user]@[host]/~/git/[project].git
 $ git push [name] master
 ```
+
+出力に色をつける
+================
+
+``` {.bash}
+$ git config --global color.ui true
+```
