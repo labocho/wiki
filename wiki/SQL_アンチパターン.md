@@ -396,3 +396,217 @@ Keyless Entry
     RESTRICT, SET DEFAULT など)
 -   オーバーヘッドはない、というか整合性チェックのためのクエリが削減できるため、結果的にパフォーマンスは向上する
 
+Entity-Attribute-Value
+======================
+
+目的
+----
+
+レコードによって異なる属性を持たせる。 例では Bug と FeatureRequest
+を扱いたい。これらは共通する属性 (Issue としての属性)
+を持ち、またそれぞれ固有の属性を持つ。
+
+アンチパターン : 汎用属性テーブル
+---------------------------------
+
+下記の 3 つの列をもつテーブルを作成する。この構造は
+Entity-Attribute-Value (EAV), open schema, schemaless, name-value pairs
+などと呼ばれる。
+
+-   Entity : 親テーブルを参照する外部キー
+-   Attribute : 属性名
+-   Value : 値
+
+``` {.sql}
+create table issues (
+  issue_id serial primary key
+);
+insert into issues (issue_id) values (1234);
+
+create table issue_attributes (
+  issue_id bigint unsigned not null,
+  attr_name varchar(100) not null,
+  attr_value varchar(100),
+  primary key (issue_id, attr_name),
+  foreign key (issue_id) references issues(issue_id)
+);
+insert into issue_attributes (issue_id, attr_name, attr_value) values
+  (1234, 'product', '1'),
+  (1234, 'status', 'NEW'), ...
+```
+
+-   列の数が非常に少なくてすむ
+-   属性の数が限定されない
+-   不要な列がない
+
+-   特定の属性を取り出すクエリが通常のテーブルよりややこしい
+-   通常の列 x 行のかたちで取り出すクエリがかなりややこしい
+-   整合性を担保できない
+    -   必須の属性を定義できない
+    -   型を指定できない
+        (通常、文字列型だが、文字列以外のものを正しく扱う仕組みがない /
+        型の数だけ列を増やすのはクエリをさらにややこしくする)
+    -   外部キー制約をつけられない
+    -   属性名を限定できない
+
+アンチパターンが有効な場合
+--------------------------
+
+本当に EAV
+が必要になるケースは少ない。リスクを理解して使用する場合でも、極力抑制して使用する。それでも短期間のうちに
+EAV テーブルは扱いにくくなる。
+リレーショナルでない柔軟なデータを扱う必要があるなら、NoSQL
+データベースを使うべき。が、この場合でも上に挙げたうちいくつかの弱点をもつ。
+
+解決策 1 : 単一テーブル継承 (Single Table Inheritance)
+------------------------------------------------------
+
+subtype
+が必要とするすべての列と、レコードタイプを保持する列をもつテーブルを作成する。
+
+``` {.sql}
+create table issues (
+  issue_id serial primary key,
+  reported_by bigint unsigned not null,
+  product_id bigint unsigned,
+  priority varchar(20),
+  version_resolved varchar(20),
+  status varchar(20),
+  issue_type varchar(20), -- BUG または FEATURE
+  severity varchar(20), -- bug 用
+  version_affected varchar(20), -- bug 用
+  sponser varchar(20), -- feature 用
+  foreign key (reported_by) references accounts(account_id),
+  foreign key (product_id) references products(product_id)
+);
+```
+
+-   どの属性がどの subtype に関連しているかを指定する方法はない
+-   subtype 固有の属性が少ない場合は便利
+-   ActiveRecord では type 列と継承で簡単に実現できる
+
+解決策 2 : 具象的テーブル継承 (Concrete Table Inheritance)
+----------------------------------------------------------
+
+subtype
+ごとにテーブルを作る。個々のテーブルに含まれる属性はのいくつかは共通しているが無関係。
+
+``` {.sql}
+create table bugs (
+  issue_id serial primary key,
+  reported_by bigint unsigned not null,
+  product_id bigint unsigned,
+  priority varchar(20),
+  version_resolved varchar(20),
+  status varchar(20),
+  severity varchar(20), -- bug 用
+  version_affected varchar(20), -- bug 用
+  foreign key (reported_by) references accounts(account_id),
+  foreign key (product_id) references products(product_id)
+);
+
+create table feature_requests (
+  issue_id serial primary key,
+  reported_by bigint unsigned not null,
+  product_id bigint unsigned,
+  priority varchar(20),
+  version_resolved varchar(20),
+  status varchar(20),
+  sponser varchar(20), -- feature 用
+  foreign key (reported_by) references accounts(account_id),
+  foreign key (product_id) references products(product_id)
+);
+```
+
+-   subtype 名を保持する列や、別の subtype 固有の列が必要ない
+-   subtype 固有の列に制約をかけられる
+-   共通属性と subtype 固有属性を区別できない
+-   共通属性を追加する場合、すべての subtype テーブルで行う必要がある
+-   subtype
+    のテーブルを見ても、似ているだけなのか、継承関係にあるのかわからない
+-   basetype として扱う場合は UNION を使う (VIEW を定義すると便利)
+
+``` {.sql}
+create view issues as
+  select bugs.*, 'bug' as issue_type from bugs
+  union all
+  select feature_requests.*, 'feature' as issue_type from feature_requests;
+```
+
+basetype として扱うことが少ない場合に有効。
+
+解決策 3 : クラステーブル継承 (Class Table Inheritance)
+-------------------------------------------------------
+
+-   basetype のテーブルと、個々のsubtype のテーブルを持つ
+-   共通する属性は basetype テーブルに、固有の属性は subtype
+    テーブルに持つ
+-   subtype は basetype テーブルを参照している
+
+``` {.sql}
+create table issues (
+  issue_id serial primary key,
+  reported_by bigint unsigned not null,
+  product_id bigint unsigned,
+  priority varchar(20),
+  version_resolved varchar(20),
+  status varchar(20),
+  foreign key (reported_by) references accounts(account_id),
+  foreign key (product_id) references products(product_id)
+);
+
+create table bugs (
+  issue_id bigint unsigned primary key,
+  severity varchar(20),
+  version_affected varchar(20),
+  foreign key (issue_id) references issues(issue_id)
+);
+
+create table feature_requests (
+  issue_id bigint unsigned primary key,
+  sponser varchar(20),
+  foreign key (issue_id) references issues(issue_id)
+);
+```
+
+-   basetype として扱う場合は、いくつ subtype があっても basetype
+    テーブルだけを見ればよい
+-   すべての subtype を left join すれば単一テーブル継承と同様に扱える
+    (VIEW にしておくと便利)
+
+basetype として扱うことが多いときに有効。
+
+解決策 4 : 準構造化データ (Semistructed Data)
+---------------------------------------------
+
+subtype の属性を、BLOB な列に XML や JSON
+などでシリアライズしたデータを保持する。Serialized LOB とも。
+
+``` {.sql}
+create table issues (
+  issue_id serial primary key,
+  reported_by bigint unsigned not null,
+  product_id bigint unsigned,
+  priority varchar(20),
+  version_resolved varchar(20),
+  status varchar(20),
+  issue_type varchar(20), -- BUG または FEATURE
+  attributes text not null, -- シリアライズしたデータ
+  foreign key (reported_by) references accounts(account_id),
+  foreign key (product_id) references products(product_id)
+);
+```
+
+-   完全に自由な形式のデータを扱える
+-   SQL
+    でデータの内容を扱うことはほとんどできず、アプリケーションコードで扱う必要がある
+
+subtype を限定できず、柔軟にデータを保持する必要がある場合に有効。
+
+解決策 5 : 後処理 (Post-Processing)
+-----------------------------------
+
+すでに EAV
+で保持しているデータを扱う場合は、単一の行を取得するのではなく、1 つの
+entity に結びついたすべての行を取得し、アプリケーションコードで処理する
+(どんな属性の行があるか予想できないため)。
