@@ -366,7 +366,7 @@ Rails 関連
 ==========
 
 request.remote\_addr
-====================
+--------------------
 
 request.remote\_ip を使い、リモートホストの IP
 アドレスによって挙動を変えている際に、controller の spec で、
