@@ -76,6 +76,19 @@ around do
 end
 ```
 
+すべての example に適用したいフックは config で設定する。
+
+``` {.ruby}
+RSpec.configure do |config|
+  config.before do
+   # some code
+  end
+  config.after do
+   # some code
+  end
+end
+```
+
 ヘルパーメソッド
 ================
 

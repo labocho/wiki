@@ -49,6 +49,19 @@ around do
 end
 </source>
 
+すべての example に適用したいフックは  config で設定する。
+
+<source lang="ruby">
+RSpec.configure do |config|
+  config.before do
+   # some code
+  end
+  config.after do
+   # some code
+  end
+end
+</source>
+
 = ヘルパーメソッド =
 describe ブロック中 で def したメソッドは it ブロック中で呼び出しできる (describe で生成されるクラスのインスタンスメソッド呼び出し)。
 
