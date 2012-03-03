@@ -7,6 +7,7 @@ Wiki といっても、編集は labocho しかできませんので悪しから
 * [[Rails tips]]
 * [[RSpec tips]]
 * [[JavaScript tips]]
+* [[SQL アンチパターン]]
 * [[Git メモ]]
 * [[Internet Explorer のためのバッドノウハウ]]
 * [[TextMate tips]]
