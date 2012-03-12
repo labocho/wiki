@@ -610,3 +610,122 @@ subtype を限定できず、柔軟にデータを保持する必要がある場
 で保持しているデータを扱う場合は、単一の行を取得するのではなく、1 つの
 entity に結びついたすべての行を取得し、アプリケーションコードで処理する
 (どんな属性の行があるか予想できないため)。
+
+Polymorphic Associations
+========================
+
+目的
+----
+
+複数の親テーブルを参照する。
+
+アンチパターン
+--------------
+
+親テーブルの種類と、親レコードの ID を保持する。
+
+``` {.sql}
+create table Contents (
+  comment_id serial primary key,
+  issue_type varchar(20), -- "Bugs" or "FeatureRequests"
+  issue_id bigint unsigned not null,
+  author bigint unsigned not null,
+  comment_date datetime,
+  comment text,
+  foreign key (author) references Accouts(account_id)
+);
+```
+
+適切な利用
+----------
+
+参照整合性をアプリケーションコードに依存しているので、回避しなければならない。
+
+解決策 1 : 関連テーブルつくる
+-----------------------------
+
+``` {.sql}
+create table BugsContents (
+    issue_id bigint unsigned not null,
+    comment_id bigint unsigned not null,
+    primary key (issue_id, comment_id),
+    foreign key (issue_id) references Bugs(issue_id),
+    foreign key (comment_id) references Comments(issue_id),
+);
+
+create table FeatureRequestsContents (
+    issue_id bigint unsigned not null,
+    comment_id bigint unsigned not null,
+    primary key (issue_id, comment_id),
+    foreign key (issue_id) references FeatureRequests(issue_id),
+    foreign key (comment_id) references Comments(issue_id),
+);
+```
+
+-   issue\_type カラムを持つ必要がない
+-   このままだと 1 つのコメントが複数の親レコードに結びつく。comment\_id
+    に UNIQUE
+    制約をつけると制限できるが、両方の親テーブルには結びつきうる。
+
+``` {.sql}
+-- 子レコードの取得
+select *
+from BugsComments as b
+  join Comments as c using (comment_id)
+where b.issue_id = 1234;
+
+-- 親レコードの取得
+select *
+from Comments as 
+  left outer join (BugsComments join Bugs as b using (issue_id)) using (comment_id)
+  left outer join (FeaturesComments join FeatureComments as b using (issue_id)) using (comment_id)
+where c.comment_id = 1234;
+```
+
+解決策 2 : Common Super-Table つくる
+------------------------------------
+
+親テーブルのスーパークラスのようなテーブルを作成し、子レコードはこれに関連づける。
+
+``` {.sql}
+create table Issues (
+  issue_id serial primary key
+);
+
+create table Bugs (
+  issue_id bigint unsigned primary key,
+  foreign key (issue_id) references Issues(issue_id),
+  ...
+);
+
+create table FeatureRequests (
+  issue_id bigint unsigned primary key,
+  foreign key (issue_id) references Issues(issue_id),
+  ...
+);
+
+create table Comments (
+  commeny_id serial primary key,
+  issue_id bigint unsigned not null,
+  …
+  foreign key (issue_id) references Issues(issue_id)
+);
+```
+
+``` {.sql}
+-- 親レコードの取得
+select *
+from Comments as c
+  left outer join Bugs as b using  (issue_id)
+  left outer join FeatureRequests as f using (issue_id)
+where c.comment_id = 1234;
+
+-- 子レコードの取得
+select *
+from Bugs as b
+  join Comments as c using (issue_id)
+where b.issue_id = 1234;
+```
+
+-   完全な参照整合性がある
+
