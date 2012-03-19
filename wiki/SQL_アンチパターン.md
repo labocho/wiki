@@ -773,16 +773,7 @@ EAV アンチパターンに陥る。
 解決策 : 依存テーブルの作成
 ---------------------------
 
-``` {.sql>
-create table tags (
-  bug_id bigint unsigned not null,
-  tag varchar(20),
-  primary key (bug_id, tag),
-  foreign key (bug_id) references bugs(bug_id)
-);
-</source>
-
-<source lang=}
+``` {.sql}
 create table tags (
   bug_id bigint unsigned not null,
   tag varchar(20),
@@ -791,10 +782,7 @@ create table tags (
 );
 ```
 
-``` {.sql>
--- 複数の列を指定する必要はない
-select * from bugs join tags using (bug_id)
-  where tag = }
+``` {.sql}
 -- 複数の列を指定する必要はない
 select * from bugs join tags using (bug_id)
   where tag = "performance";
@@ -810,3 +798,107 @@ select * from bugs
 -   primary key 制約により、重複した値が挿入されることはない
 -   値の数に制限はない
 
+Metadata Tribbles
+=================
+
+目的 : スケーラビリティ
+-----------------------
+
+大量のレコードがあっても、パフォーマンスを確保したい。
+
+アンチパターン
+--------------
+
+テーブルを年度などごとに分割する。しばしばテーブル名に年が含まれる。
+
+``` {.sql}
+create table bugs_2008 (…);
+create table bugs_2009 (…);
+create table bugs_2010 (…);
+```
+
+-   レコード追加時には日付に基づいて、適切なテーブルを指定しなければならない。これに失敗すると、検索や集計に支障をきたす。
+-   CHECK
+    による制約で、不適切なレコードの追加を防ぐこともできる。ただし、毎年、新しいテーブルを追加するたびに、忘れずに制約を追加しなければならない。
+-   日付を変更したら UPDATE でなく DELETE / INSERT
+    で別のテーブルに移さなければならない。
+-   分割したテーブルで UNIQUE
+    制約をかけることはできない。主キーが重複しうる。
+-   複数年度分を集計する場合、UNION
+    を使う必要がある。新しいテーブルを作ったらおそらく修正する必要がある。
+-   列を追加したら、すべてのテーブルで追加しなければならない。
+-   分割した複数のテーブルを参照する外部キー制約はかけられない。
+-   JOIN するときもすべてのテーブルを指定しなければならない。
+
+下記のように新しい列を追加していく場合も似たような問題がおこる。
+
+``` {.sql}
+create table project_history (
+  bug_fixed_2008 integer,
+  bug_fixed_2009 integer,
+  bug_fixed_2010 integer  
+);
+```
+
+アンチパターンが有効な場合
+--------------------------
+
+アーカイブのために古いレコードを別のテーブルに移すのはいい使い方。これにより新しいレコードを納めるテーブルのサイズは小さく抑えられ、パフォーマンスは維持される。
+
+解決策 1 : 水平パーティショニング (シャーディング)
+--------------------------------------------------
+
+物理的には分割されるが、1 つの論理的なテーブルとして扱える。
+
+``` {.sql}
+-- date_reported の年ごとに分割する
+create table bugs (
+  bug_id serial primary key,
+  …
+  date_reported date
+) partition by hash (year(date_reported)) partitions 4;
+```
+
+-   間違って別の年のテーブルに挿入することはない
+-   日付の変更も UPDATE で OK
+-   複数年度にまたがるクエリでも複数のテーブルを指定する必要はない
+-   上例では 4 つに分割しているが、5
+    年目もいづれかのテーブルに割り振られる
+    (テーブルを追加する必要はない)。
+-   外部キー制約や JOIN も問題なし
+
+解決策 2 : 垂直パーティショニング
+---------------------------------
+
+TEXT や BLOB など、データ量の大きな列を別のテーブルに移す。
+
+``` {.sql}
+create table product_installers (
+  product_id bigint unsigned primary key,
+  installer_image blob,
+  foreign key (product_id) references products(product_id)
+);
+```
+
+-   SELECT でワイルドカード ( \* )
+    指定時に、無駄に大きな列を取得しないですむ。
+-   (必要な列だけ SELECT
+    する場合にもメリットがあるかは、本文からはわからなかった。)
+
+解決策 3 : カラム分割の修正
+---------------------------
+
+アンチパターンの説明で、年度ごとに列を追加していたケースは、依存テーブルを作成すべき。
+
+``` {.sql}
+create table project_history (
+  product_id bigint,
+  year smallint,
+  bugs_fixed int,
+  primary_key (product_id, year),
+  foreign key (product_id) refereces projects(project_id)
+);
+```
+
+product ごと 1 レコードだったのを、product と year ごとに 1
+レコードにしている。追加簡単。
