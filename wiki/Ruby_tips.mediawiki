@@ -289,6 +289,24 @@ require "yaml"
 puts YAML.load_file(ARGV.shift).to_xml
 </source>
 
+= Kernel#open / IO.open の第 2 引数でのエンコーディング指定 =
+
+<tt>Kernel#open</tt> あるいは <tt>IO#open</tt> では、第 2 引数にモードと外部・内部エンコーディングを指定できる。モードについては [http://doc.okkez.net/static/192/method/Kernel/m/open.html Kernel#open] に詳しく記述されているが、エンコーディングについてはどのような文字列が指定できるか言及されていない。
+
+実装は C で書かれてて読むのが大変そうだったので、Rubinius のソース [https://github.com/rubinius/rubinius/blob/master/kernel/common/io19.rb rubinius/kernel/common/io19.rb] をみると、<tt>IO#initialize</tt> から <tt>IO#set_encoding</tt> を呼んでて、エンコーディング文字列を <tt>Encoding.find</tt> に渡して <tt>Encoding</tt> オブジェクトを得ている。
+
+<tt>Encoding.find</tt> について調べてみると [https://github.com/rubinius/rubinius/blob/master/kernel/common/encoding.rb rubinius/kernel/common/encoding.rb] 、<tt>Encoding::EncodingMap</tt> (これは CRuby にはない) のキーと一致したものを返している。このさい、キーはシンボルなので文字列に変換した上で、両方 <tt>upcase</tt> して比較している。 
+
+<source lang="ruby">
+# rvm use rubinius
+# ruby -X19
+Encoding::EncodingMap.keys.map{|k| k.to_s.upcase}.sort == Encoding.name_list.map{|n| n.upcase}.sort # => true
+</source>
+
+だったので、<tt>Encoding.name_list</tt> に含まれる値なら <tt>Encoding.find</tt> で探せて、<tt>open</tt> の第2引数のエンコーディング文字列として使える。比較の際 <tt>upcase</tt> してるため case-insensitive であり、shift_jis でも SHIFT_JIS でも Shift_JIS でもいいが、アンダースコアとハイフンは区別するので shift-jis ではだめ。
+
+CRuby でも <tt>Encoding.name_list.each{|n| Encoding.find(n) }</tt> で例外が起こらないことを確認した。
+
 = Time#strftime =
 よく使う ISO8601 や RFC2822 については、標準添付ライブラリ time を使う。
 <source lang="ruby">
