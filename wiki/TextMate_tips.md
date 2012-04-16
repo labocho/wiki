@@ -121,3 +121,12 @@ Git のエディタにする
 $ git config --global --unset-all core.editor
 $ git config --global core.editor "mate -wl1"
 ```
+
+ペースト時の自動インデントを無効化
+==================================
+
+YAML や HAML
+などで、ペースト時に不要な自動インデントがされる場合、command + control
++ V で自動インデントなしでペーストできる。 これをデフォルトにしたいなら
+Preferences -\> Text Editing -\> Re-indent pasted text
+のチェックを外す。
