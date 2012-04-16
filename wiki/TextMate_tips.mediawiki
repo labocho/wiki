@@ -2,16 +2,16 @@
 
 = よく使うショートカット =
 {|class="wikitable"
-! command + T
+! ⌘T
 | プロジェクト内のファイルを検索して開く
 |-
-! command + shift + F
+! ⌘⇧F
 | プロジェクト内で検索・置換
 |-
-! command + R
+! ⌘R
 | 実行 (Bundle 依存)
 |-
-! command + /
+! ⌘/
 | 選択範囲をコメント / コメント解除 (Bundle 依存)
 |}
 
@@ -91,5 +91,5 @@ $ git config --global core.editor "mate -wl1"
 
 = ペースト時の自動インデントを無効化 =
 
-YAML や HAML などで、ペースト時に不要な自動インデントがされる場合、command + control + V で自動インデントなしでペーストできる。
+YAML や HAML などで、ペースト時に不要な自動インデントがされる場合、⌘⌃V で自動インデントなしでペーストできる。
 これをデフォルトにしたいなら Preferences -> Text Editing -> Re-indent pasted text のチェックを外す。
