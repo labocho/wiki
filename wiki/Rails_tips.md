@@ -291,6 +291,8 @@ end
 
     # rails 環境で
     ruby script/runner "puts Fixtures.identify(:labocho)" 
+    # 3.1 以降
+    rails runner "puts ActiveRecord::Fixtures.identify(:labocho)" 
 
     # ruby だけで
     ruby -r zlib -e "puts Zlib.crc32('labocho') % (2 ** 30 - 1)"

@@ -243,7 +243,10 @@ end
 
 <pre>
 # rails 環境で
-ruby script/runner "puts Fixtures.identify(:labocho)" </pre>
+ruby script/runner "puts Fixtures.identify(:labocho)" 
+# 3.1 以降
+rails runner "puts ActiveRecord::Fixtures.identify(:labocho)" 
+</pre>
 
 <pre>
 # ruby だけで
@@ -251,6 +254,7 @@ ruby -r zlib -e "puts Zlib.crc32('labocho') % (2 ** 30 - 1)"
 </pre>
 
 file_column のテスト時にはレコードの id をディレクトリ名に使う必要があるが、この方法で割り振られる id を確認しておけば、fixture に id を記述しなくともテストできる。
+
 == parallel_tests ==
 parallel_tests はマルチプロセスでテストを行う gem。マルチコア環境では飛躍的にテストが高速化できる。
 * [https://github.com/grosser/parallel_tests grosser/parallel_tests - GitHub]
