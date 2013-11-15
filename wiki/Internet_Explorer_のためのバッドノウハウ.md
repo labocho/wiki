@@ -107,5 +107,8 @@ Windows XP 上の IE は TLSv1.1
 
 Windows Vista 以降は問題なし。
 
+解決策は特にないので、SSL 証明書ごとに異なる IP
+アドレスを使用するか、Windows XP + IE のユーザをサポートしない。
+
 [Server Name Indication -
 Wikipedia](https://ja.wikipedia.org/wiki/Server_Name_Indication)
