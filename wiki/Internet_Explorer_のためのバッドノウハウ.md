@@ -94,3 +94,18 @@ inline-block; と同じような効果が得られる。
 
 [IE 6, IE 7 の inline-block 考察 |
 ヨモツネット](http://www.yomotsu.net/wp/?p=390)
+
+1 つの IP アドレスで複数の SSL 証明書を使う
+===========================================
+
+TLSv1.1
+からは通信開始時にホスト名を送信するので、サーバ側でホスト名に応じた SSL
+証明書を返すことができる。
+
+Windows XP 上の IE は TLSv1.1
+に対応していないため、いずれかのホストで誤った証明書を取得してしまい、検証エラーになる。
+
+Windows Vista 以降は問題なし。
+
+[Server Name Indication -
+Wikipedia](https://ja.wikipedia.org/wiki/Server_Name_Indication)
