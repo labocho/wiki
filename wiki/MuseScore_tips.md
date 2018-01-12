@@ -8,7 +8,7 @@ layout: wiki
 
 - <span class="mac-key">S</span>: スラーの追加
 - <span class="mac-key">⇧S</span>: スタカートのトグル
-- <span class="mac-key">⌘⇧↑/⌘⇧↓</span>: 8 度上/下に
+- <span class="mac-key">⌘↑/⌘↓</span>: 8 度上/下に
 
 
 ## 全休符が左寄りになっている
