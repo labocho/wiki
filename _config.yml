@@ -1,0 +1,20 @@
+name: penguinlab wiki
+# markdown: redcarpet
+# highlighter: pygments
+# production_url : http://penguinlab.jp/wiki
+# baseurl: /wiki
+# permalink: post/:title
+# tag_page_layout: tag_page
+# tag_page_dir: post/tag
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Rakefile
+  - TODO.md
+assets:
+  destination: /wiki/assets
+  precompile:
+    - application.css
+    - application.js
+  raw_precompile:
+    - wikilogo.png

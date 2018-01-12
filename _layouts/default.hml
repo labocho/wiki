@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="{{ site.baseurl}}/">
+    <link rel="alternate" type="application/rss+xml" href="{{ site.baseurl }}/feed.rss" title="RSS 2.0">
+    <link rel="alternate" type="application/atom+xml" href="{{ site.baseurl }}/feed.atom" title="Atom cite contents">
+    <link rel="canonical" href="{{ site.production_url }}{{ page.url | url_remove_index | url_remove_html_extension }}">
+
+    <title>{{ page.title }}{% if page.title %} - {% endif %}{{ site.name }}</title>
+    {% asset application.css %}
+  </head>
+  <body>
+    <!-- facebook sdk -->
+    <div id="fb-root"></div>
+    <!-- /facebook sdk -->
+    <div class="site">
+      <div class="container">
+        <div class="visible-xs logo-container">
+          <a href="/wiki/">
+            {% asset wikilogo.png %}
+          </a>
+        </div>
+        <div class="row">
+          <div class="col-sm-8 box">
+            {{ content }}
+          </div>
+          <div class="col-sm-4 sidebar">
+            <div class="hidden-xs logo-container">
+              <a href="/wiki/">
+                {% asset wikilogo.png %}
+              </a>
+            </div>
+            <div class="sidebar-item">
+              <div class="author-name">by labocho</div>
+              <ul class="identities">
+                <li><a href="https://twitter.com/labocho" title="Twitter"><i class="fa fa-lg fa-twitter"></i> twitter.com/labocho</a></li>
+                <li><a href="https://github.com/labocho" title="GitHub"><i class="fa fa-lg fa-github"></i> github.com/labocho</a></li>
+              </ul>
+            </div>
+            <div class="sidebar-item">
+              <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="container">
+        powered by <a href="http://jekyllrb.com/">Jekyll</a>.
+      </footer>
+    </div>
+    {% asset application.js %}
+  </body>
+</html>

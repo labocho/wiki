@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article>
+  <h1>{{ page.title }}</h1>
+  <ul class="metadata list-with-icon">
+    <li>
+      <i class="fa fa-clock-o fa-lg"></i>
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemptop="datePublished">{{ page.date | date: "%Y年%-m月%-d日" }}</time>
+    </li>
+    {% if page.tags.size > 0 %}
+    <li>
+      <i class="fa fa-tag fa-lg"></i>
+      <ul class="tags">
+        {% for tag in page.tags %}
+        <li><a href="post/tag/{{ tag | url_escape }}">{{ tag }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+  </ul>
+
+  <div class="post">
+  {{ content }}
+  </div>
+  <ul class="social-buttons">
+    <li>{% include facebook.html %}</li>
+    <li style="padding-top: 3px">{% include hatena_bookmark.html %}</li>
+    <li style="padding-top: 3px">{% include twitter.html %}</li>
+  </ul>
+</article>
+<div class="row prev-next-nav">
+  <div class="col-xs-6">
+    {% if page.next %}
+       <a rel="next" href="{{ site.baseurl }}{{ page.next.url }}"><i class="fa fa-arrow-left"></i> {{ page.next.title }}</a>
+    {% endif %}
+  </div>
+  <div class="col-xs-6">
+    {% if page.previous %}
+       <a rel="prev" href="{{ site.baseurl }}{{ page.previous.url }}"><i class="fa fa-arrow-right"></i> {{ page.previous.title }}</a>
+    {% endif %}
+  </div>
+</div>
+
