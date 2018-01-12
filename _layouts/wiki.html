@@ -6,7 +6,7 @@ layout: default
   <ul class="metadata list-with-icon">
     <li>
       <i class="fa fa-clock-o fa-lg"></i>
-      <time datetime="{{ page.date | date_to_xmlschema }}" itemptop="datePublished">{{ page.date | date: "%Y年%-m月%-d日" }}</time>
+      <a href="{{ page.title | github_history_url }}">変更履歴</a>
     </li>
     {% if page.tags.size > 0 %}
     <li>
