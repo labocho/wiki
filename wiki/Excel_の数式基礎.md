@@ -74,12 +74,12 @@ layout: wiki
 算術演算子、比較演算子、論理演算
 ================================
 
-+ : 加算
+\+ : 加算
 --------
 
     =5+3 → 8
 
-- : 減算
+\- : 減算
 --------
 
     =5-2 → 3
@@ -102,7 +102,7 @@ MOD(値, 除数) : 剰余
 
     =MOD(5,3) → 2
 
-\^ : 累乗
+^ : 累乗
 ---------
 
     =5^3 → 125
@@ -114,8 +114,10 @@ MOD(値, 除数) : 剰余
     ="ABC"&"DEF" → ABCDEF
     =100&200 → 100200
 
-== = : 両辺が等しければTRUE、それ以外はFALSE == 等号2つ ==
-じゃなくて、1つ = なので注意。
+\= : 両辺が等しければTRUE、それ以外はFALSE
+----------------
+
+等号2つ == じゃなくて、1つ = なので注意。
 
     =(1=1) → TRUE
     =(1=2) → FALSE
@@ -145,13 +147,15 @@ MOD(値, 除数) : 剰余
     =(1<2) → TRUE
     =(1<1) → FALSE
 
-== \>= : 左辺が右辺以上ならTRUE、それ以外はFALSE ==
+\>= : 左辺が右辺以上ならTRUE、それ以外はFALSE ==
+--------------------------------------------------
 
     =(2>=1) → TRUE
     =(1>=1) → TRUE
     =(0>=1) → FALSE
 
-== \<= : 左辺が右辺以下ならTRUE、それ以外はFALSE ==
+\<= : 左辺が右辺以下ならTRUE、それ以外はFALSE ==
+--------------------------------------------------
 
     =(1<=2) → TRUE
     =(1<=1) → TRUE
@@ -183,18 +187,122 @@ NOT(真偽式) : 否定
 セル、セル範囲の参照
 ====================
 
-||A|B|C|D|E|F|G|
-|---|---|---|---|---|---|---|---|
-|1||||||||
-|2||||||||
-|3||||||||
-|4||||||||
-|5||||||||
-|6||||||||
-|7||||||||
-|8||||||||
-|9||||||||
-|10||||||||
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+      <th>E</th>
+      <th>F</th>
+      <th>G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td style="background:#fada7a">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#d2da7a">&nbsp;</td>
+      <td style="background:#d2da7a">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#d2da7a">&nbsp;</td>
+      <td style="background:#d2da7a">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>&nbsp;</td>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#9fb8cd">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#7030a0">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+      <td style="background:#7030a0">&nbsp;</td>
+      <td style="background:#c00000">&nbsp;</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td style="background:#00b0f0">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 セルは列名と行番号で指定します。A列1行のセルなら<span style="background:#fada7a">
 A1 </span>です。
@@ -213,20 +321,97 @@ A4,B4:C5,C6 </span>で6つのセルを含むセル範囲を示します。
 
 ただし、通常は数式の入力中にセルをクリックして参照するのがもっとも簡単です。四角形のセル範囲はドラッグで、コンマ区切りはCtrlを押しながらクリック/ドラッグで実現できます。
 
-  
+
 
 絶対参照と相対参照
 ==================
 
-||A|B|C|D|E|F|G|
-|---|---|---|---|---|---|---|---|
-|1||||||||
-|2||=X1|=Y1||=\$X1|=\$X1||
-|3||=X2|=Y2||=\$X2|=\$X2||
-|4||||||||
-|5||=X\$1|=Y\$1||=\$X\$1|=\$X\$1||
-|6||=X\$1|=Y\$1||=\$X\$1|=\$X\$1||
-|7||||||||
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th style="width: 4em;">A</th>
+      <th style="width: 4em;">B</th>
+      <th style="width: 4em;">C</th>
+      <th style="width: 4em;">D</th>
+      <th style="width: 4em;">E</th>
+      <th style="width: 4em;">F</th>
+      <th style="width: 4em;">G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&nbsp;</td>
+      <td style="background:#fada7a">=X1</td>
+      <td style="background:#fada7a">=Y1</td>
+      <td>&nbsp;</td>
+      <td style="background:#d2da7a">=$X1</td>
+      <td style="background:#d2da7a">=$X1</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&nbsp;</td>
+      <td style="background:#fada7a">=X2</td>
+      <td style="background:#fada7a">=Y2</td>
+      <td>&nbsp;</td>
+      <td style="background:#d2da7a">=$X2</td>
+      <td style="background:#d2da7a">=$X2</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>&nbsp;</td>
+      <td style="background:#9fb8cd">=X$1</td>
+      <td style="background:#9fb8cd">=Y$1</td>
+      <td>&nbsp;</td>
+      <td style="background:#b88472">=$X$1</td>
+      <td style="background:#b88472">=$X$1</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&nbsp;</td>
+      <td style="background:#9fb8cd">=X$1</td>
+      <td style="background:#9fb8cd">=Y$1</td>
+      <td>&nbsp;</td>
+      <td style="background:#b88472">=$X$1</td>
+      <td style="background:#b88472">=$X$1</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 セル(セル範囲含む)の指定には絶対参照と相対参照の2種類があります。これはセル指定の列名、行番号の前に\$があるかないかで指定します。\$があれば絶対参照、なければ相対参照です。
 
@@ -239,7 +424,7 @@ A4,B4:C5,C6 </span>で6つのセルを含むセル範囲を示します。
 絶対参照と相対参照の切り替えは、数式の編集時セル指定の部分にカーソルがある状態でF4キーを押すのが便利です。F4キーを押すたび、A10
 → \$A\$10→ A\$10 → \$A10 → A10 ... のように変化します。
 
-  
+
 
 よく使う関数
 ============
@@ -247,14 +432,16 @@ A4,B4:C5,C6 </span>で6つのセルを含むセル範囲を示します。
 LEFT(対象文字列, 文字数)
 ------------------------
 
-<対象文字列>の左から<文字数>文字を返す。
+`対象文字列` の左から `文字数` 文字を返す。
 
-    =LEFT("ABCDEF", 3) → ABC
+```
+=LEFT("ABCDEF", 3) → ABC
+```
 
 MID(対象文字列, 開始位置, 文字数)
 ---------------------------------
 
-<対象文字列>の<開始位置>文字目から<文字数>文字を返す。<文字数>が充分大きいと<開始位置>以降すべての文字を返す。
+`対象文字列`の`開始位置`文字目から`文字数`文字を返す。`文字数`が充分大きいと`開始位置`以降すべての文字を返す。
 
     =MID("ABCDEF", 3, 2) → "CD"
     =MID("ABCDEF", FIND("C","ABCDEF"), 100) → "CDEF" ※Cがある位置から最後まで
@@ -262,7 +449,7 @@ MID(対象文字列, 開始位置, 文字数)
 FIND(検索文字列, 対象文字列, [開始位置])
 ----------------------------------------
 
-<対象文字列>の<開始位置>文字目から<検索文字列>を探し、見つかったら<検索文字列>の1文字目がある位置を返す。<開始位置>省略時は1文字目から。見つからなければ\#VALUEエラーを返す。
+`対象文字列`の`開始位置`文字目から`検索文字列`を探し、見つかったら`検索文字列`の1文字目がある位置を返す。`開始位置`省略時は1文字目から。見つからなければ\#VALUEエラーを返す。
 
     =FIND("D","ABCDEFABCDEF") → 4
     =FIND("D","ABCDEFABCDEF",5) → 10
@@ -271,7 +458,7 @@ FIND(検索文字列, 対象文字列, [開始位置])
 TEXT(値, 表示形式)
 ------------------
 
-<値>を<表示形式>に基づいて文字列に変換したものを返す。<表示形式>は[セルの書式設定]-[表示形式]-[ユーザー定義]で使われるものと似ているが、完全に同じではない
+`値`を`表示形式`に基づいて文字列に変換したものを返す。`表示形式`は[セルの書式設定]-[表示形式]-[ユーザー定義]で使われるものと似ているが、完全に同じではない
 (参照: [TEXT 関数 - Excel - Microsoft
 Office](http://office.microsoft.com/ja-jp/excel-help/HP010062580.aspx),
 [ユーザー定義の表示形式を作成または削除する - Excel - Microsoft
@@ -288,16 +475,49 @@ Office](http://office.microsoft.com/ja-jp/excel-help/HP001216503.aspx))。不正
 MATCH(検索値, 検索範囲, 検索方法)
 ---------------------------------
 
-||A|B|C|D|
-|---|---|---|---|---|
-|1|い|ろ|は|に|
-|2|ほ|へ|と|ち|
-|3|り|ぬ|る|を|
-|4|わ|か|よ|た|
+`検索範囲`を`検索方法`にもとづいて`検索値`で検索し、最初にヒットしたセルの`検索範囲`内での行位置/列位置を返す。`検索範囲`は1列n行かn列1行のセル範囲。検索方法はややこしいのでつねに0を指定することを強く推奨する。0を指定すると完全一致した場合のみヒットしたとみなし、ヒットしなければ\#N/Aエラーを返す。
 
-<検索範囲>を<検索方法>にもとづいて<検索値>で検索し、最初にヒットしたセルの<検索範囲>内での行位置/列位置を返す。<検索範囲>は1列n行かn列1行のセル範囲。検索方法はややこしいのでつねに0を指定することを強く推奨する。0を指定すると完全一致した場合のみヒットしたとみなし、ヒットしなければ\#N/Aエラーを返す。
-
-  
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>い</td>
+      <td>ろ</td>
+      <td>は</td>
+      <td>に</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ほ</td>
+      <td>へ</td>
+      <td>と</td>
+      <td>ち</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>り</td>
+      <td>ぬ</td>
+      <td>る</td>
+      <td>を</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>わ</td>
+      <td>か</td>
+      <td>よ</td>
+      <td>た</td>
+    </tr>
+  </tbody>
+</table>
 
     (付表において)
     =MATCH("ぬ", B:B, 0) → 3 ※B列の3行目でヒット
@@ -308,19 +528,47 @@ MATCH(検索値, 検索範囲, 検索方法)
 INDEX(範囲, 行位置, 列位置)
 ---------------------------
 
-||A|B|C|D|
-|---|---|---|---|---|
-|1|い|ろ|は|に|
-|2|ほ|へ|と|ち|
-|3|り|ぬ|る|を|
+`範囲`内の`行位置`、`列位置`にあるセルの値を返す。`範囲`はn列n行のセル範囲だが、1列n行かn列1行のセル範囲の場合は、3つ目の引数を省略可能(2つ目の引数は、範囲が1列n行なら行位置、範囲がn列1行なら列位置と見なされる)。
 
-<範囲>内の<行位置>、<列位置>にあるセルの値を返す。<範囲>はn列n行のセル範囲だが、1列n行かn列1行のセル範囲の場合は、3つ目の引数を省略可能(2つ目の引数は、範囲が1列n行なら行位置、範囲がn列1行なら列位置と見なされる)。
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>い</td>
+      <td>ろ</td>
+      <td>は</td>
+      <td>に</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ほ</td>
+      <td>へ</td>
+      <td>と</td>
+      <td>ち</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>り</td>
+      <td>ぬ</td>
+      <td>る</td>
+      <td>を</td>
+    </tr>
+  </tbody>
+</table>
 
-  
 
     (付表において)
-    =INDEX(A1:D3,3,2) → ぬ ※A1:D3の3行目2列目 
-    =INDEX(B2:C3,2,1) → ぬ ※B2:C3の2行目1列目 
+    =INDEX(A1:D3,3,2) → ぬ ※A1:D3の3行目2列目
+    =INDEX(B2:C3,2,1) → ぬ ※B2:C3の2行目1列目
     =INDEX(B:B,3) → ぬ ※B列の3行目
     =INDEX(3:3,2) → ぬ ※3行目の2列目
     =INDEX(A:A,MATCH("ぬ",B:B,0)) → り ※B列が「ぬ」である行(3行目)のA列のセルの値
@@ -328,21 +576,42 @@ INDEX(範囲, 行位置, 列位置)
 IF(条件式, [真の場合の値], [偽の場合の値])
 ------------------------------------------
 
-<条件式>がTRUEなら<真の場合の値>、FALSEなら<偽の場合の値>を返す。<真の場合の値>、<偽の場合の値>のうち片方は省略しても良いが、省略時の挙動がややこしいので省略しないことを推奨する。
+`条件式`がTRUEなら`真の場合の値`、FALSEなら`偽の場合の値`を返す。`真の場合の値`、`偽の場合の値`のうち片方は省略しても良いが、省略時の挙動がややこしいので省略しないことを推奨する。
 
     =IF(1<3, "1は3より小さい", "1は3より大きい") → 1は3より小さい
 
 COUNTIF(範囲, 条件)
 -------------------
 
-||A|B|C|D|
-|---|---|---|---|---|
-|1|10|20|30|40|
-|2|い|ろ|い|ろ|
+`範囲`内に`条件`に一致するセルがいくつあるかを返す。
 
-<範囲>内に<条件>に一致するセルがいくつあるかを返す。
-
-  
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>10</td>
+      <td>20</td>
+      <td>30</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>い</td>
+      <td>ろ</td>
+      <td>い</td>
+      <td>ろ</td>
+    </tr>
+  </tbody>
+</table>
 
     =COUNTIF(A1:D2,20) → 1
     =COUNTIF(A1:D2,"<=30") → 3
@@ -351,21 +620,44 @@ COUNTIF(範囲, 条件)
 SUM(範囲)
 ---------
 
-||A|B|C|D|
-|---|---|---|---|---|
-|1|10|20|30|40|
-|2|い|ろ|い|ろ|
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>10</td>
+      <td>20</td>
+      <td>30</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>い</td>
+      <td>ろ</td>
+      <td>い</td>
+      <td>ろ</td>
+    </tr>
+  </tbody>
+</table>
 
-<範囲>内の数値をすべて合計した値を返す。
+`範囲`内の数値をすべて合計した値を返す。
 
-  
+
 
     =SUM(A1:D2) → 100
 
 ISERROR(式)
 -----------
 
-<式>がエラーならTRUE、エラーでなければFALSEを返す。FIND、MATCH、INDEXなどが成功したかによって処理を変えたいときに便利。
+`式`がエラーならTRUE、エラーでなければFALSEを返す。FIND、MATCH、INDEXなどが成功したかによって処理を変えたいときに便利。
 
     =ISERROR(FIND("A","123456")) → TRUE
     =IF(ISERROR(FIND("A","123456")),"not found","found") → not found
@@ -373,20 +665,95 @@ ISERROR(式)
 GETPIVOTDATA(値の系列, 参照するピボットテーブル, 行/列名1, 行/列の値1, 行/列名2, 行/列の値2, …)
 -----------------------------------------------------------------------------------------------
 
-||A|B|C|D|E|F|
-|---|---|---|---|---|---|---|
-|3|データの個数 / ID|学年|||||
-|4|学部|1|2|3|4|総計|
-|5|医|1|1||1|3|
-|6|教|1|2|||3|
-|7|工|1||1|1|3|
-|8|人||1||1|2|
-|9|生||1|1|2|4|
-|10|総計|3|5|2|5|15|
+`参照するピボットテーブル`から、`行/列名X`が`行/列の値X`の`値の系列`の値を返します。セル参照と同じように、数式中でピボットテーブル内のセルをクリックすればこの関数を使った参照が作られるので、これを利用して、必要があれば書換えるのが簡単。
 
-<参照するピボットテーブル>から、<行/列名X>が<行/列の値X>の<値の系列>の値を返します。セル参照と同じように、数式中でピボットテーブル内のセルをクリックすればこの関数を使った参照が作られるので、これを利用して、必要があれば書換えるのが簡単。
-
-  
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th style="width: 10em;">A</th>
+      <th style="width: 4.5em;">B</th>
+      <th style="width: 4.5em;">C</th>
+      <th style="width: 4.5em;">D</th>
+      <th style="width: 4.5em;">E</th>
+      <th style="width: 4.5em;">F</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>データの個数 / ID</td>
+      <td>学年</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>学部</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>総計</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>医</td>
+      <td>1</td>
+      <td>1</td>
+      <td>&nbsp;</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>教</td>
+      <td>1</td>
+      <td>2</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>工</td>
+      <td>1</td>
+      <td>&nbsp;</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>人</td>
+      <td>&nbsp;</td>
+      <td>1</td>
+      <td>&nbsp;</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>生</td>
+      <td>&nbsp;</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>総計</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2</td>
+      <td>5</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
 
     =GETPIVOTDATA("ID",$A$3,"学年",2,"学部","教") → 2
     ※$A$3にあるピボットテーブルの「学年」が「2」で学部が「教」の「ID」の個数
